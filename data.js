@@ -27,22 +27,22 @@ const ORTE = [
   // BEISPIELORTE
   // ─────────────────────────────────────────────
 
-  {
-    name: "Katz Orange",
+    {
+    name: "CHUWOO 初伍",
     kiez: "Mitte",
-    maps: "https://maps.app.goo.gl/KatzOrange",
-    kommentar: "Versteckter Innenhof, saisonale Küche. Fühlt sich an wie bei jemandem zu Hause — nur besser gekocht. Unbedingt reservieren.",
-    kueche: "Deutsch / Saisonal",
+    maps: "https://maps.app.goo.gl/t5nk5V3Ybbptj85H9",
+    kommentar: "Kleines Restaurant mit wenigen Tischen — aber genau das macht es aus. Die Küche bietet chinesische Spezialitäten die man in Berlin kaum findet. Nicht verpassen: die besondere Dessertauswahl. Einrichtung verspielt und liebevoll, mit einer Ästhetik die Fans von Pop Mart oder Miniso sofort ansprechen wird.",
+    kueche: "Chinesisch / Asiatisch",
 
-    tageszeit: ["dinner"],
-    vibe: ["entspannt", "besonders"],
+    tageszeit: ["lunch", "dinner"],
+    vibe: ["schnell", "lebendig"],
     budget: "mid",
 
-    vegan: false,
-    reservierung: true,
-    walkin: false,
+    vegan: true,
+    reservierung: false,
+    walkin: true,
     cashonly: false,
-  },
+},
 
   {
     name: "Doyum Grillhaus",
