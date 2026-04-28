@@ -78,7 +78,7 @@ const ORTE = [
     name: "Banh Mi Stable",
     kiez: "Mitte",
     maps: "https://maps.app.goo.gl/scEYY2PbqpS4YRtH6",
-    kommentar: "Kleiner Laden, perfekt für einen schnellen vietnamesischen Snack. Hauptsächlich Banh Mi Sandwiches. Favorit: Banh Mi Heo Quay
+    kommentar: "Kleiner Laden, perfekt für einen schnellen vietnamesischen Snack. Hauptsächlich Banh Mi Sandwiches. Favorit: Banh Mi Heo Quay",
     kueche: "Vietnamesisch",
     tageszeit: ["lunch", "dinner"],
     vibe: ["schnell"],
@@ -87,6 +87,20 @@ const ORTE = [
     reservierung: false,
     walkin: true,
     cashonly: true,
+  },
+  {
+    name: "Ming Dynastie Jannowitzbrücke",
+    kiez: "Mitte",
+    maps: "https://maps.app.goo.gl/cc7xpBMcuQzWHEvV6",
+    kommentar: "Restaurant mit viel Platz und klassisch chinesischer Einrichtung, was direkt für eine authentische Atmosphäre sorgt. Die Nähe zur chinesischen Botschaft unterstreicht das Ganze noch. Mittags gibt es ein Menüangebot. Besonders schön: die Lage direkt am Wasser.",
+    kueche: "Chinesisch",
+    tageszeit: ["lunch", "dinner"],
+    vibe: ["besonders",lebendig],
+    budget: "mid",
+    vegan: true,
+    reservierung: true,
+    walkin: true,
+    cashonly: false,
   },
 
 ];
