@@ -74,5 +74,19 @@ const ORTE = [
     walkin: true,
     cashonly: false,
   },
+  {
+    name: "Banh Mi Stable",
+    kiez: "Mitte",
+    maps: "https://maps.app.goo.gl/scEYY2PbqpS4YRtH6",
+    kommentar: "Kleiner Laden, perfekt für einen schnellen vietnamesischen Snack. Hauptsächlich Banh Mi Sandwiches. Favorit: Banh Mi Heo Quay
+    kueche: "Vietnamesisch",
+    tageszeit: ["lunch", "dinner"],
+    vibe: ["schnell"],
+    budget: "low",
+    vegan: false,
+    reservierung: false,
+    walkin: true,
+    cashonly: true,
+  },
 
 ];
