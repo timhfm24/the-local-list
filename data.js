@@ -74,6 +74,7 @@ const ORTE = [
     walkin: true,
     cashonly: false,
   },
+  
   {
     name: "Banh Mi Stable",
     kiez: "Mitte",
@@ -88,6 +89,7 @@ const ORTE = [
     walkin: true,
     cashonly: true,
   },
+  
   {
     name: "Ming Dynastie Jannowitzbrücke",
     kiez: "Mitte",
@@ -95,7 +97,7 @@ const ORTE = [
     kommentar: "Restaurant mit viel Platz und klassisch chinesischer Einrichtung, was direkt für eine authentische Atmosphäre sorgt. Die Nähe zur chinesischen Botschaft unterstreicht das Ganze noch. Mittags gibt es ein Menüangebot. Besonders schön: die Lage direkt am Wasser.",
     kueche: "Chinesisch",
     tageszeit: ["lunch", "dinner"],
-    vibe: ["besonders",lebendig],
+    vibe: ["besonders","lebendig"],
     budget: "mid",
     vegan: true,
     reservierung: true,
