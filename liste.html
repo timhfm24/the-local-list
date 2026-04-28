@@ -1,0 +1,542 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Alle Orte — The Local List Berlin</title>
+<link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,600;1,400;1,600&family=Mulish:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg:      #F7F3EE;
+    --bg2:     #EDE7DC;
+    --ink:     #1E1B17;
+    --muted:   #8C8278;
+    --border:  #D9D0C4;
+    --accent:  #C4501A;
+    --accent2: #4A7C59;
+    --tag-bg:  #E8E1D6;
+    --white:   #FDFAF7;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--bg);
+    color: var(--ink);
+    font-family: 'Mulish', sans-serif;
+    font-weight: 400;
+    min-height: 100vh;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* ── HEADER ── */
+  header {
+    background: var(--white);
+    border-bottom: 1px solid var(--border);
+    padding: 1.25rem 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    position: sticky;
+    top: 0;
+    z-index: 50;
+  }
+
+  .logo {
+    font-family: 'Lora', serif;
+    font-size: 1.2rem;
+    font-weight: 600;
+    letter-spacing: -0.01em;
+    color: var(--ink);
+    text-decoration: none;
+  }
+
+  .logo span { color: var(--accent); }
+
+  /* ── LAYOUT ── */
+  .seite {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 2.5rem 1.5rem 6rem;
+  }
+
+  /* ── TITEL ── */
+  .seiten-titel {
+    margin-bottom: 2rem;
+  }
+
+  .seiten-label {
+    font-size: 0.65rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 0.5rem;
+  }
+
+  .seiten-h1 {
+    font-family: 'Lora', serif;
+    font-size: clamp(1.6rem, 3.5vw, 2.2rem);
+    font-weight: 600;
+    letter-spacing: -0.02em;
+  }
+
+  /* ── FILTER ── */
+  .filter-bereich {
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 1.25rem 1.5rem;
+    margin-bottom: 2rem;
+  }
+
+  .filter-zeile {
+    display: flex;
+    align-items: flex-start;
+    gap: 1rem;
+    margin-bottom: 1rem;
+    flex-wrap: wrap;
+  }
+
+  .filter-zeile:last-child { margin-bottom: 0; }
+
+  .filter-label {
+    font-size: 0.65rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--muted);
+    min-width: 80px;
+    padding-top: 0.3rem;
+    flex-shrink: 0;
+  }
+
+  .filter-tags {
+    display: flex;
+    gap: 0.4rem;
+    flex-wrap: wrap;
+  }
+
+  .ftag {
+    font-size: 0.72rem;
+    padding: 0.3rem 0.75rem;
+    border: 1.5px solid var(--border);
+    border-radius: 20px;
+    background: var(--bg);
+    color: var(--muted);
+    cursor: pointer;
+    transition: all 0.12s;
+    font-family: 'Mulish', sans-serif;
+    font-weight: 500;
+    letter-spacing: 0.02em;
+    white-space: nowrap;
+  }
+
+  .ftag:hover { border-color: var(--ink); color: var(--ink); }
+
+  .ftag.aktiv {
+    background: var(--ink);
+    border-color: var(--ink);
+    color: var(--white);
+  }
+
+  .ftag.aktiv.gruen {
+    background: var(--accent2);
+    border-color: var(--accent2);
+  }
+
+  /* Filter zurücksetzen */
+  .filter-reset {
+    font-size: 0.72rem;
+    color: var(--muted);
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-family: 'Mulish', sans-serif;
+    letter-spacing: 0.04em;
+    padding: 0.3rem 0;
+    transition: color 0.12s;
+    text-decoration: underline;
+    text-underline-offset: 2px;
+  }
+  .filter-reset:hover { color: var(--ink); }
+
+  /* ── ERGEBNIS INFO ── */
+  .ergebnis-info {
+    font-size: 0.78rem;
+    color: var(--muted);
+    margin-bottom: 1.25rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  /* ── KARTEN GRID ── */
+  .karten-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.75rem;
+  }
+
+  @media (max-width: 580px) {
+    .karten-grid { grid-template-columns: 1fr; }
+  }
+
+  /* ── ORT KARTE ── */
+  .ort-karte {
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 1.1rem;
+    transition: border-color 0.15s, box-shadow 0.15s;
+    animation: einblenden 0.3s ease both;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .ort-karte:hover {
+    border-color: var(--muted);
+    box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+  }
+
+  @keyframes einblenden {
+    from { opacity: 0; transform: translateY(8px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  .ort-oben {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 0.5rem;
+    margin-bottom: 0.25rem;
+  }
+
+  .ort-name {
+    font-family: 'Lora', serif;
+    font-size: 1rem;
+    font-weight: 600;
+    line-height: 1.2;
+  }
+
+  .ort-budget {
+    font-size: 0.68rem;
+    font-weight: 600;
+    color: var(--accent2);
+    white-space: nowrap;
+    padding: 0.18rem 0.45rem;
+    background: #EBF3EE;
+    border-radius: 3px;
+    flex-shrink: 0;
+  }
+
+  .ort-meta {
+    font-size: 0.72rem;
+    color: var(--muted);
+    margin-bottom: 0.65rem;
+  }
+
+  .ort-kommentar {
+    font-size: 0.81rem;
+    color: #5C5449;
+    line-height: 1.6;
+    font-style: italic;
+    margin-bottom: 0.9rem;
+    padding-left: 0.65rem;
+    border-left: 2px solid var(--border);
+    flex: 1;
+  }
+
+  .ort-unten {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    gap: 0.5rem;
+    margin-top: auto;
+  }
+
+  .ort-tags {
+    display: flex;
+    gap: 0.3rem;
+    flex-wrap: wrap;
+  }
+
+  .otag {
+    font-size: 0.58rem;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    background: var(--tag-bg);
+    color: var(--muted);
+    padding: 0.18rem 0.45rem;
+    border-radius: 3px;
+    border: 1px solid var(--border);
+  }
+
+  .otag.gruen {
+    background: #EBF3EE;
+    color: var(--accent2);
+    border-color: #C8DFD0;
+  }
+
+  .maps-link {
+    font-size: 0.72rem;
+    font-weight: 600;
+    color: var(--ink);
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    gap: 0.25rem;
+    white-space: nowrap;
+    padding: 0.35rem 0.75rem;
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    background: var(--bg);
+    transition: all 0.12s;
+    flex-shrink: 0;
+  }
+
+  .maps-link:hover {
+    background: var(--ink);
+    color: var(--white);
+    border-color: var(--ink);
+  }
+
+  /* ── LEER ── */
+  .keine-orte {
+    grid-column: 1 / -1;
+    text-align: center;
+    padding: 3rem 1rem;
+    color: var(--muted);
+    font-size: 0.88rem;
+    line-height: 1.7;
+  }
+
+  .keine-orte span { display: block; font-size: 2rem; margin-bottom: 0.75rem; }
+
+  /* ── TRENNLINIE FILTER ── */
+  .filter-divider {
+    height: 1px;
+    background: var(--border);
+    margin: 1rem 0;
+  }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 480px) {
+    header { padding: 1rem 1.25rem; }
+    .seite { padding: 1.5rem 1.25rem 5rem; }
+    .filter-bereich { padding: 1rem; }
+    .filter-zeile { gap: 0.6rem; }
+    .filter-label { min-width: 60px; font-size: 0.6rem; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <a class="logo" href="index.html">The Local<span>List</span></a>
+  <nav style="display:flex;align-items:center;gap:1.5rem;">
+    <a href="index.html" style="font-size:0.78rem;color:var(--muted);text-decoration:none;letter-spacing:0.04em;" onmouseover="this.style.color='var(--ink)'" onmouseout="this.style.color='var(--muted)'">Finder</a>
+    <a href="liste.html" style="font-size:0.78rem;color:var(--ink);text-decoration:none;letter-spacing:0.04em;font-weight:600;">Alle Orte</a>
+  </nav>
+</header>
+
+<div class="seite">
+
+  <div class="seiten-titel">
+    <p class="seiten-label">The Local List · Berlin</p>
+    <h1 class="seiten-h1">Alle Orte</h1>
+  </div>
+
+  <!-- ── FILTER ── -->
+  <div class="filter-bereich">
+
+    <div class="filter-zeile">
+      <span class="filter-label">Wann</span>
+      <div class="filter-tags" id="filter-tageszeit">
+        <button class="ftag" data-gruppe="tageszeit" data-wert="brunch" onclick="toggleFilter(this)">Brunch / Café</button>
+        <button class="ftag" data-gruppe="tageszeit" data-wert="lunch"  onclick="toggleFilter(this)">Lunch</button>
+        <button class="ftag" data-gruppe="tageszeit" data-wert="dinner" onclick="toggleFilter(this)">Dinner</button>
+      </div>
+    </div>
+
+    <div class="filter-zeile">
+      <span class="filter-label">Vibe</span>
+      <div class="filter-tags" id="filter-vibe">
+        <button class="ftag" data-gruppe="vibe" data-wert="entspannt" onclick="toggleFilter(this)">Entspannt</button>
+        <button class="ftag" data-gruppe="vibe" data-wert="lebendig"  onclick="toggleFilter(this)">Lebendig</button>
+        <button class="ftag" data-gruppe="vibe" data-wert="draussen"  onclick="toggleFilter(this)">Draußen</button>
+        <button class="ftag" data-gruppe="vibe" data-wert="besonders" onclick="toggleFilter(this)">Besonderer Abend</button>
+        <button class="ftag" data-gruppe="vibe" data-wert="schnell"   onclick="toggleFilter(this)">Schnell</button>
+      </div>
+    </div>
+
+    <div class="filter-zeile">
+      <span class="filter-label">Budget</span>
+      <div class="filter-tags" id="filter-budget">
+        <button class="ftag" data-gruppe="budget" data-wert="low"  onclick="toggleFilter(this)">bis 10 €</button>
+        <button class="ftag" data-gruppe="budget" data-wert="mid"  onclick="toggleFilter(this)">10–25 €</button>
+        <button class="ftag" data-gruppe="budget" data-wert="high" onclick="toggleFilter(this)">25 €+</button>
+      </div>
+    </div>
+
+    <div class="filter-divider"></div>
+
+    <div class="filter-zeile">
+      <span class="filter-label">Extras</span>
+      <div class="filter-tags">
+        <button class="ftag gruen-toggle" data-gruppe="extra" data-wert="vegan"       onclick="toggleFilter(this)">Vegan friendly</button>
+        <button class="ftag gruen-toggle" data-gruppe="extra" data-wert="walkin"      onclick="toggleFilter(this)">Walk-in möglich</button>
+        <button class="ftag gruen-toggle" data-gruppe="extra" data-wert="reservierung" onclick="toggleFilter(this)">Reservierung empfohlen</button>
+        <button class="ftag gruen-toggle" data-gruppe="extra" data-wert="cashonly"    onclick="toggleFilter(this)">Cash only</button>
+      </div>
+    </div>
+
+    <div style="margin-top:0.75rem;">
+      <button class="filter-reset" onclick="alleZuruecksetzen()">Alle Filter zurücksetzen</button>
+    </div>
+
+  </div>
+
+  <!-- ── ERGEBNIS INFO ── -->
+  <div class="ergebnis-info">
+    <span id="anzahl-text"></span>
+  </div>
+
+  <!-- ── KARTEN ── -->
+  <div class="karten-grid" id="karten-grid"></div>
+
+</div>
+
+<script src="data.js"></script>
+<script>
+
+// ── FILTER STATE ──
+const aktiveFilter = {
+  tageszeit: [],
+  vibe: [],
+  budget: [],
+  extra: [],
+};
+
+function toggleFilter(btn) {
+  const gruppe = btn.dataset.gruppe;
+  const wert   = btn.dataset.wert;
+  const idx    = aktiveFilter[gruppe].indexOf(wert);
+
+  if (idx > -1) {
+    aktiveFilter[gruppe].splice(idx, 1);
+    btn.classList.remove("aktiv", "gruen");
+  } else {
+    aktiveFilter[gruppe].push(wert);
+    btn.classList.add("aktiv");
+    if (btn.classList.contains("gruen-toggle")) btn.classList.add("gruen");
+  }
+
+  rendereKarten();
+}
+
+function alleZuruecksetzen() {
+  aktiveFilter.tageszeit = [];
+  aktiveFilter.vibe      = [];
+  aktiveFilter.budget    = [];
+  aktiveFilter.extra     = [];
+  document.querySelectorAll(".ftag").forEach(b => b.classList.remove("aktiv", "gruen"));
+  rendereKarten();
+}
+
+// ── FILTER LOGIK ──
+function passt(ort) {
+  // Tageszeit — mindestens einer muss passen
+  if (aktiveFilter.tageszeit.length > 0) {
+    if (!aktiveFilter.tageszeit.some(t => ort.tageszeit.includes(t))) return false;
+  }
+
+  // Vibe — mindestens einer muss passen
+  if (aktiveFilter.vibe.length > 0) {
+    if (!aktiveFilter.vibe.some(v => ort.vibe.includes(v))) return false;
+  }
+
+  // Budget — mindestens einer muss passen
+  if (aktiveFilter.budget.length > 0) {
+    if (!aktiveFilter.budget.includes(ort.budget)) return false;
+  }
+
+  // Extras — alle ausgewählten müssen passen
+  for (const ex of aktiveFilter.extra) {
+    if (!ort[ex]) return false;
+  }
+
+  return true;
+}
+
+// ── RENDERN ──
+const budgetLabel = { low: "bis 10 €", mid: "10–25 €", high: "25 €+" };
+
+const tagLabels = {
+  brunch: "Brunch/Café", lunch: "Lunch", dinner: "Dinner",
+  entspannt: "Entspannt", lebendig: "Lebendig", draussen: "Draußen",
+  besonders: "Besonderer Abend", schnell: "Schnell",
+};
+
+function rendereKarten() {
+  const gefiltert = ORTE.filter(passt);
+  const grid = document.getElementById("karten-grid");
+
+  // Anzahl
+  const gesamt = ORTE.length;
+  const hatFilter = Object.values(aktiveFilter).some(a => a.length > 0);
+  document.getElementById("anzahl-text").textContent =
+    hatFilter
+      ? `${gefiltert.length} von ${gesamt} Orten`
+      : `${gesamt} Orte`;
+
+  if (gefiltert.length === 0) {
+    grid.innerHTML = `
+      <div class="keine-orte">
+        <span>🤔</span>
+        Für diese Kombination habe ich gerade keinen Ort.<br>
+        Versuch es mit anderen Filtern.
+      </div>
+    `;
+    return;
+  }
+
+  grid.innerHTML = gefiltert.map((ort, i) => {
+
+    // Vibe-Tags anzeigen
+    const vibeTags = ort.vibe.map(v =>
+      `<span class="otag">${tagLabels[v] || v}</span>`
+    ).join("");
+
+    // Info-Tags
+    const infoTags = [];
+    if (ort.vegan)        infoTags.push(`<span class="otag gruen">Vegan</span>`);
+    if (ort.walkin)       infoTags.push(`<span class="otag">Walk-in</span>`);
+    if (ort.reservierung) infoTags.push(`<span class="otag">Reservierung</span>`);
+    if (ort.cashonly)     infoTags.push(`<span class="otag">Cash only</span>`);
+
+    return `
+      <div class="ort-karte" style="animation-delay:${i * 0.05}s">
+        <div class="ort-oben">
+          <div class="ort-name">${ort.name}</div>
+          <div class="ort-budget">${budgetLabel[ort.budget]}</div>
+        </div>
+        <div class="ort-meta">${ort.kiez}${ort.kueche ? " · " + ort.kueche : ""}</div>
+        <p class="ort-kommentar">${ort.kommentar}</p>
+        <div class="ort-unten">
+          <div class="ort-tags">
+            ${vibeTags}
+            ${infoTags.join("")}
+          </div>
+          <a class="maps-link" href="${ort.maps}" target="_blank" rel="noopener">↗ Maps</a>
+        </div>
+      </div>
+    `;
+  }).join("");
+}
+
+// Init
+document.addEventListener("DOMContentLoaded", rendereKarten);
+
+</script>
+</body>
+</html>
