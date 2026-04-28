@@ -182,6 +182,21 @@
   }
 
   /* ── ORT KARTE ── */
+  .ort-foto {
+    width: 100%;
+    height: 160px;
+    background: var(--bg2);
+    border-radius: 6px 6px 0 0;
+    background-size: cover;
+    background-position: center;
+    margin: -1.1rem -1.1rem 1rem -1.1rem;
+    width: calc(100% + 2.2rem);
+    transition: opacity 0.3s;
+    opacity: 0;
+  }
+
+  .ort-foto.geladen { opacity: 1; }
+
   .ort-karte {
     background: var(--white);
     border: 1px solid var(--border);
@@ -191,6 +206,7 @@
     animation: einblenden 0.3s ease both;
     display: flex;
     flex-direction: column;
+    overflow: hidden;
   }
 
   .ort-karte:hover {
@@ -407,6 +423,7 @@
 </div>
 
 <script src="data.js"></script>
+<script src="places.js"></script>
 <script>
 
 // ── FILTER STATE ──
@@ -515,7 +532,8 @@ function rendereKarten() {
     if (ort.cashonly)     infoTags.push(`<span class="otag">Cash only</span>`);
 
     return `
-      <div class="ort-karte" style="animation-delay:${i * 0.05}s">
+      <div class="ort-karte" data-name="${ort.name}" style="animation-delay:${i * 0.05}s">
+        <div class="ort-foto"></div>
         <div class="ort-oben">
           <div class="ort-name">${ort.name}</div>
           <div class="ort-budget">${budgetLabel[ort.budget]}</div>
@@ -537,6 +555,20 @@ function rendereKarten() {
 // Init
 document.addEventListener("DOMContentLoaded", rendereKarten);
 
+function initPlaces() {
+  ladeFotos(ORTE, (ort, fotoUrl) => {
+    const karte = document.querySelector(`[data-name="${CSS.escape(ort.name)}"]`);
+    if (karte) {
+      const fotoEl = karte.querySelector(".ort-foto");
+      if (fotoEl) {
+        fotoEl.style.backgroundImage = `url(${fotoUrl})`;
+        fotoEl.classList.add("geladen");
+      }
+    }
+  });
+}
+
 </script>
+<script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC-_ePhbQ89N2T8hpg4a5gzgeGeN3Pqo0I&libraries=places&callback=initPlaces"></script>
 </body>
 </html>
