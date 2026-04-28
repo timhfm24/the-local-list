@@ -109,7 +109,7 @@ const ORTE = [
     name: "Inari-San Berlin",
     kiez: "Mitte",
     maps: "https://maps.app.goo.gl/51qgykzvxX26UNVGA",
-    kommentar: "Kleiner Laden, eher für to go gedacht, mit ein paar Bänken draußen zum schnellen Essen. Auf Inaris spezialisiert. Der Matcha wird frisch zubereitet und überzeugt. Etwas teurer, aber die Qualität passt. Favorit: Inari Bake, Yuzu Salmon", Nur Kartenzahlung",
+    kommentar: "Kleiner Laden, eher für to go gedacht, mit ein paar Bänken draußen zum schnellen Essen. Auf Inaris spezialisiert. Der Matcha wird frisch zubereitet und überzeugt. Etwas teurer, aber die Qualität passt. Nur Kartenzahlung. Favorit: Inari Bake, Yuzu Salmon",
     kueche: "Japanisch"
     tageszeit: ["lunch", "dinner"],
     vibe: ["schnell","unkompliziert"],
