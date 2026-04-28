@@ -1,43 +1,14 @@
 const ORTE = [
 
-  // ─────────────────────────────────────────────
-  // VORLAGE — kopiere diesen Block um einen neuen Ort hinzuzufügen
-  // ─────────────────────────────────────────────
-  //
-  // {
-  //   name: "",                        // Name des Ortes
-  //   kiez: "",                        // Kiez / Bezirk
-  //   maps: "",                        // Google Maps Link
-  //   kommentar: "",                   // Dein persönlicher Kommentar
-  //   kueche: "",                      // Küche / Essensrichtung (nur zur Anzeige)
-  //
-  //   // FINDER-TAGS (mehrere möglich, mindestens einer pro Kategorie)
-  //   tageszeit: ["brunch", "lunch", "dinner"],   // brunch · lunch · dinner
-  //   vibe: ["entspannt", "lebendig", "draussen", "besonders", "schnell"],
-  //   budget: "low",                   // low (bis 10€) · mid (10–25€) · high (25€+)
-  //
-  //   // HINTERGRUND-TAGS (true oder false)
-  //   vegan: false,
-  //   reservierung: false,
-  //   walkin: false,
-  //   cashonly: false,
-  // },
-
-  // ─────────────────────────────────────────────
-  // BEISPIELORTE
-  // ─────────────────────────────────────────────
-
   {
     name: "Katz Orange",
     kiez: "Mitte",
     maps: "https://maps.app.goo.gl/KatzOrange",
-    kommentar: "Versteckter Innenhof, saisonale Küche. Fühlt sich an wie bei jemandem zu Hause — nur besser gekocht. Unbedingt reservieren.",
+    kommentar: "Versteckter Innenhof, saisonale Küche. Fühlt sich an wie bei jemandem zu Hause, nur besser gekocht. Unbedingt reservieren.",
     kueche: "Deutsch / Saisonal",
-
     tageszeit: ["dinner"],
     vibe: ["entspannt", "besonders"],
     budget: "mid",
-
     vegan: false,
     reservierung: true,
     walkin: false,
@@ -50,11 +21,9 @@ const ORTE = [
     maps: "https://maps.app.goo.gl/Doyum",
     kommentar: "Kein Schnickschnack. Bestes Adana-Kebab in Kreuzberg, seit Jahrzehnten. Einfach hingehen.",
     kueche: "Türkisch",
-
     tageszeit: ["lunch", "dinner"],
     vibe: ["schnell", "lebendig"],
     budget: "low",
-
     vegan: false,
     reservierung: false,
     walkin: true,
@@ -65,13 +34,11 @@ const ORTE = [
     name: "Silo Coffee",
     kiez: "Friedrichshain",
     maps: "https://maps.app.goo.gl/SiloCoffee",
-    kommentar: "Top Specialty-Coffee und dicke Brunchplatten. Lässige Atmosphäre, gute Energie. Wochenends voll — unter der Woche entspannter.",
-    kueche: "Café / Brunch",
-
+    kommentar: "Top Specialty-Coffee und dicke Brunchplatten. Lassige Atmosphare, gute Energie. Wochenends voll, unter der Woche entspannter.",
+    kueche: "Cafe / Brunch",
     tageszeit: ["brunch"],
     vibe: ["entspannt", "lebendig"],
     budget: "mid",
-
     vegan: true,
     reservierung: false,
     walkin: true,
@@ -79,16 +46,14 @@ const ORTE = [
   },
 
   {
-    name: "Nobelhart & Schmutzig",
+    name: "Nobelhart und Schmutzig",
     kiez: "Mitte",
     maps: "https://maps.app.goo.gl/Nobelhart",
-    kommentar: "Brutal local. Nur Zutaten aus Brandenburg. Eines der besten Restaurants Berlins — für Abende die man nicht vergisst.",
+    kommentar: "Brutal local. Nur Zutaten aus Brandenburg. Eines der besten Restaurants Berlins, fur Abende die man nicht vergisst.",
     kueche: "Fine Dining / Regional",
-
     tageszeit: ["dinner"],
     vibe: ["besonders"],
     budget: "high",
-
     vegan: false,
     reservierung: true,
     walkin: false,
@@ -96,20 +61,18 @@ const ORTE = [
   },
 
   {
-    name: "CHUWOO 初伍",
+    name: "CHUWOO",
     kiez: "Mitte",
     maps: "https://maps.app.goo.gl/t5nk5V3Ybbptj85H9",
-    kommentar: "Kleines Restaurant mit wenigen Tischen — aber genau das macht es aus. Die Küche bietet chinesische Spezialitäten die man in Berlin kaum findet. Nicht verpassen: die besondere Dessertauswahl. Einrichtung verspielt und liebevoll, mit einer Ästhetik die Fans von Pop Mart oder Miniso sofort ansprechen wird.",
+    kommentar: "Kleines Restaurant mit wenigen Tischen, aber genau das macht es aus. Die Kuche bietet chinesische Spezialitaten die man in Berlin kaum findet. Nicht verpassen: die besondere Dessertauswahl. Einrichtung verspielt und liebevoll.",
     kueche: "Chinesisch / Asiatisch",
-
     tageszeit: ["lunch", "dinner"],
     vibe: ["schnell", "lebendig"],
     budget: "mid",
-
     vegan: true,
     reservierung: false,
     walkin: true,
     cashonly: false,
-},
+  },
 
 ];
