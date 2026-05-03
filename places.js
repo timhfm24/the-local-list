@@ -26,7 +26,6 @@ async function ladeOrtDaten(name, kiez) {
         "nationalPhoneNumber",
         "websiteURI",
         "regularOpeningHours",
-        "reservable",
         "googleMapsURI",
       ],
       language: "de",
@@ -80,7 +79,7 @@ async function ladeOrtDaten(name, kiez) {
       website:     place.websiteURI || null,
       heuteText:   heuteText,
       jetztOffen:  jetztOffen,
-      reservierbar: place.reservable || false,
+      reservierbar: false,
       mapsUrl:     place.googleMapsURI || null,
       wochentag:   WOCHENTAGE[heute],
     };
