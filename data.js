@@ -52,7 +52,7 @@ const ORTE = [
     kueche: "Italienisch",
     tageszeit: ["lunch", "dinner"],
     vibe: ["besonders","lebendig"],
-    budget: "mid","high",
+    budget: ["mid", "high"],
     vegan: true,
     reservierung: true,
     walkin: false,
