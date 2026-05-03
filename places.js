@@ -1,110 +1,100 @@
 // ─────────────────────────────────────────────
-// Google Places API
-// Laedt: Foto, Oeffnungszeiten, Bewertung, Adresse, Telefon, Website, Reservierung
+// Google Places API (neue Version ab 2025)
+// Verwendet google.maps.places.Place
 // ─────────────────────────────────────────────
 
-const PLACES_API_KEY = "AIzaSyC-_ePhbQ89N2T8hpg4a5gzgeGeN3Pqo0I";
-
 const ortCache = {};
-
 const WOCHENTAGE = ["Sonntag", "Montag", "Dienstag", "Mittwoch", "Donnerstag", "Freitag", "Samstag"];
 
-function ladeOrtDaten(name, kiez) {
+async function ladeOrtDaten(name, kiez) {
   const cacheKey = name + "|" + kiez;
-  if (ortCache[cacheKey] !== undefined) return Promise.resolve(ortCache[cacheKey]);
+  if (ortCache[cacheKey] !== undefined) return ortCache[cacheKey];
 
-  return new Promise(function(resolve) {
-    if (typeof google === "undefined") { resolve(null); return; }
+  try {
+    const { Place } = await google.maps.importLibrary("places");
 
-    var service = new google.maps.places.PlacesService(document.createElement("div"));
+    // Schritt 1: Suche nach dem Ort
+    const request = {
+      textQuery: name + " " + kiez + " Berlin",
+      fields: [
+        "id",
+        "displayName",
+        "photos",
+        "rating",
+        "userRatingCount",
+        "formattedAddress",
+        "nationalPhoneNumber",
+        "websiteURI",
+        "regularOpeningHours",
+        "reservable",
+        "googleMapsURI",
+      ],
+      language: "de",
+      region: "de",
+    };
 
-    service.findPlaceFromQuery(
-      {
-        query: name + " " + kiez + " Berlin",
-        fields: ["place_id", "name"],
-      },
-      function(ergebnisse, status) {
-        if (
-          status !== google.maps.places.PlacesServiceStatus.OK ||
-          !ergebnisse || !ergebnisse[0]
-        ) {
-          ortCache[cacheKey] = null;
-          resolve(null);
-          return;
+    const { places } = await Place.searchByText(request);
+
+    if (!places || places.length === 0) {
+      ortCache[cacheKey] = null;
+      return null;
+    }
+
+    const place = places[0];
+    const heute = new Date().getDay();
+
+    // Öffnungszeiten heute
+    let heuteText = null;
+    let jetztOffen = null;
+
+    if (place.regularOpeningHours) {
+      const zeiten = place.regularOpeningHours.weekdayDescriptions;
+      if (zeiten && zeiten.length > 0) {
+        const idx = heute === 0 ? 6 : heute - 1;
+        const voll = zeiten[idx] || null;
+        if (voll) {
+          const teile = voll.split(": ");
+          heuteText = teile.length > 1 ? teile[1] : voll;
         }
-
-        service.getDetails(
-          {
-            placeId: ergebnisse[0].place_id,
-            fields: [
-              "name",
-              "photos",
-              "rating",
-              "user_ratings_total",
-              "formatted_address",
-              "formatted_phone_number",
-              "website",
-              "opening_hours",
-              "reservable",
-              "url",
-            ],
-          },
-          function(detail, detailStatus) {
-            if (detailStatus !== google.maps.places.PlacesServiceStatus.OK || !detail) {
-              ortCache[cacheKey] = null;
-              resolve(null);
-              return;
-            }
-
-            var heute = new Date().getDay(); // 0=So, 1=Mo, ...
-            var heuteText = null;
-            var jetztOffen = null;
-
-            if (detail.opening_hours) {
-              jetztOffen = detail.opening_hours.isOpen();
-              var zeiten = detail.opening_hours.weekday_text;
-              if (zeiten && zeiten.length > 0) {
-                // weekday_text startet bei Montag (Index 0), heute ist 0=So
-                // Umrechnung: JS So=0 -> index 6, Mo=1 -> index 0
-                var idx = heute === 0 ? 6 : heute - 1;
-                heuteText = zeiten[idx] || null;
-                // Nur die Uhrzeit extrahieren (nach dem Doppelpunkt)
-                if (heuteText) {
-                  var teile = heuteText.split(": ");
-                  heuteText = teile.length > 1 ? teile[1] : heuteText;
-                }
-              }
-            }
-
-            var fotoUrl = null;
-            if (detail.photos && detail.photos.length > 0) {
-              fotoUrl = detail.photos[0].getUrl({ maxWidth: 800, maxHeight: 500 });
-            }
-
-            var ergebnis = {
-              foto:        fotoUrl,
-              bewertung:   detail.rating || null,
-              rezensionen: detail.user_ratings_total || null,
-              adresse:     detail.formatted_address || null,
-              telefon:     detail.formatted_phone_number || null,
-              website:     detail.website || null,
-              heuteText:   heuteText,
-              jetztOffen:  jetztOffen,
-              reservierbar: detail.reservable || false,
-              mapsUrl:     detail.url || null,
-              wochentag:   WOCHENTAGE[heute],
-            };
-
-            ortCache[cacheKey] = ergebnis;
-            resolve(ergebnis);
-          }
-        );
       }
-    );
-  });
+      // isOpen() prüfen
+      try {
+        jetztOffen = place.regularOpeningHours.isOpen();
+      } catch(e) {
+        jetztOffen = null;
+      }
+    }
+
+    // Foto
+    let fotoUrl = null;
+    if (place.photos && place.photos.length > 0) {
+      fotoUrl = place.photos[0].getURI({ maxWidth: 800, maxHeight: 500 });
+    }
+
+    const ergebnis = {
+      foto:        fotoUrl,
+      bewertung:   place.rating || null,
+      rezensionen: place.userRatingCount || null,
+      adresse:     place.formattedAddress || null,
+      telefon:     place.nationalPhoneNumber || null,
+      website:     place.websiteURI || null,
+      heuteText:   heuteText,
+      jetztOffen:  jetztOffen,
+      reservierbar: place.reservable || false,
+      mapsUrl:     place.googleMapsURI || null,
+      wochentag:   WOCHENTAGE[heute],
+    };
+
+    ortCache[cacheKey] = ergebnis;
+    return ergebnis;
+
+  } catch(e) {
+    console.warn("Places API Fehler fuer:", name, e);
+    ortCache[cacheKey] = null;
+    return null;
+  }
 }
 
-// Laedt Daten fuer alle Orte und ruft callback(ort, daten) auf
 function ladePlacesDaten(orte, callback) {
   orte.forEach(function(ort) {
     ladeOrtDaten(ort.name, ort.kiez).then(function(daten) {
@@ -113,13 +103,10 @@ function ladePlacesDaten(orte, callback) {
   });
 }
 
-// Hilfsfunktion: Baut den Info-Block HTML
 function baueInfoBlock(daten) {
   var html = '<div class="place-info">';
 
-  // Bewertung
   if (daten.bewertung) {
-    var sterne = Math.round(daten.bewertung * 2) / 2;
     html += '<div class="place-bewertung">';
     html += '<span class="place-stern">★</span>';
     html += '<span class="place-note">' + daten.bewertung.toFixed(1) + '</span>';
@@ -129,28 +116,24 @@ function baueInfoBlock(daten) {
     html += '</div>';
   }
 
-  // Oeffnungszeiten heute
   if (daten.heuteText !== null) {
-    var offenKlasse = daten.jetztOffen ? "offen" : "geschlossen";
-    var offenText   = daten.jetztOffen ? "Jetzt geöffnet" : "Jetzt geschlossen";
+    var offenKlasse = daten.jetztOffen ? "offen" : (daten.jetztOffen === false ? "geschlossen" : "unbekannt");
+    var offenText   = daten.jetztOffen ? "Jetzt geöffnet" : (daten.jetztOffen === false ? "Jetzt geschlossen" : "");
     html += '<div class="place-zeiten">';
-    html += '<span class="place-offen-badge ' + offenKlasse + '">' + offenText + '</span>';
+    if (offenText) html += '<span class="place-offen-badge ' + offenKlasse + '">' + offenText + '</span>';
     html += '<span class="place-heute">' + daten.wochentag + ': ' + daten.heuteText + '</span>';
     html += '</div>';
   }
 
-  // Adresse
   if (daten.adresse) {
     var adresseKurz = daten.adresse.replace(", Germany", "").replace(", Deutschland", "");
     html += '<div class="place-zeile">📍 <span>' + adresseKurz + '</span></div>';
   }
 
-  // Telefon
   if (daten.telefon) {
     html += '<div class="place-zeile">📞 <a href="tel:' + daten.telefon + '" class="place-link">' + daten.telefon + '</a></div>';
   }
 
-  // Website
   if (daten.website) {
     var domain = daten.website.replace(/^https?:\/\//, "").replace(/\/$/, "").split("/")[0];
     html += '<div class="place-zeile">🌐 <a href="' + daten.website + '" target="_blank" rel="noopener" class="place-link">' + domain + '</a></div>';
@@ -158,7 +141,6 @@ function baueInfoBlock(daten) {
 
   html += '</div>';
 
-  // Reservierungs-Button
   if (daten.reservierbar && daten.mapsUrl) {
     html += '<a href="' + daten.mapsUrl + '" target="_blank" rel="noopener" class="reservier-btn">Tisch reservieren →</a>';
   }
@@ -166,7 +148,6 @@ function baueInfoBlock(daten) {
   return html;
 }
 
-// CSS fuer den Info-Block — wird einmalig in den Head eingefuegt
 function injectPlacesCSS() {
   if (document.getElementById("places-css")) return;
   var style = document.createElement("style");
