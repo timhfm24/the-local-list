@@ -19,7 +19,6 @@
   }
 
   * { margin: 0; padding: 0; box-sizing: border-box; }
-
   html { scroll-behavior: smooth; }
 
   body {
@@ -31,7 +30,6 @@
     -webkit-font-smoothing: antialiased;
   }
 
-  /* ── HEADER ── */
   header {
     background: var(--white);
     border-bottom: 1px solid var(--border);
@@ -54,21 +52,12 @@
 
   .logo span { color: var(--accent); }
 
-  .header-meta {
-    font-size: 0.72rem;
-    color: var(--muted);
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
-  }
-
-  /* ── MAIN ── */
   main {
     max-width: 640px;
     margin: 0 auto;
     padding: 3rem 1.5rem 6rem;
   }
 
-  /* ── SCREENS ── */
   .screen { display: none; }
   .screen.aktiv { display: block; animation: einblenden 0.35s ease; }
 
@@ -77,10 +66,7 @@
     to   { opacity: 1; transform: translateY(0); }
   }
 
-  /* ── START ── */
-  .start-intro {
-    margin-bottom: 2.5rem;
-  }
+  .start-intro { margin-bottom: 2.5rem; }
 
   .start-label {
     font-size: 0.68rem;
@@ -99,10 +85,7 @@
     margin-bottom: 1rem;
   }
 
-  .start-titel em {
-    font-style: italic;
-    color: var(--accent);
-  }
+  .start-titel em { font-style: italic; color: var(--accent); }
 
   .start-text {
     font-size: 0.9rem;
@@ -141,7 +124,6 @@
     gap: 0.5rem;
   }
 
-  /* ── QUIZ ── */
   .fortschritt {
     display: flex;
     gap: 0.35rem;
@@ -182,11 +164,7 @@
     line-height: 1.5;
   }
 
-  .optionen {
-    display: flex;
-    flex-direction: column;
-    gap: 0.5rem;
-  }
+  .optionen { display: flex; flex-direction: column; gap: 0.5rem; }
 
   .opt {
     display: flex;
@@ -204,18 +182,8 @@
     text-align: left;
   }
 
-  .opt:hover {
-    border-color: var(--ink);
-    background: var(--bg2);
-  }
-
-  .opt.gewaehlt {
-    border-color: var(--accent);
-    background: #FBF0EB;
-    color: var(--accent);
-    font-weight: 600;
-  }
-
+  .opt:hover { border-color: var(--ink); background: var(--bg2); }
+  .opt.gewaehlt { border-color: var(--accent); background: #FBF0EB; color: var(--accent); font-weight: 600; }
   .opt-icon { font-size: 1.1rem; flex-shrink: 0; }
 
   .quiz-nav {
@@ -255,7 +223,6 @@
   .btn-weiter:hover:not(:disabled) { background: var(--accent); }
   .btn-weiter:disabled { opacity: 0.25; cursor: not-allowed; }
 
-  /* ── ERGEBNISSE ── */
   .ergebnis-header {
     margin-bottom: 2rem;
     padding-bottom: 1.5rem;
@@ -284,7 +251,6 @@
     line-height: 1.6;
   }
 
-  /* ── ORT KARTE ── */
   .ort-karte {
     background: var(--white);
     border: 1px solid var(--border);
@@ -293,12 +259,26 @@
     margin-bottom: 0.75rem;
     transition: border-color 0.15s, box-shadow 0.15s;
     animation: einblenden 0.35s ease both;
+    overflow: hidden;
   }
 
   .ort-karte:hover {
     border-color: var(--muted);
     box-shadow: 0 2px 12px rgba(0,0,0,0.06);
   }
+
+  .ort-foto {
+    width: calc(100% + 2.5rem);
+    height: 180px;
+    margin: -1.25rem -1.25rem 1.25rem -1.25rem;
+    background: var(--bg2);
+    background-size: cover;
+    background-position: center;
+    opacity: 0;
+    transition: opacity 0.4s ease;
+  }
+
+  .ort-foto.geladen { opacity: 1; }
 
   .ort-oben {
     display: flex;
@@ -336,8 +316,6 @@
     flex-wrap: wrap;
   }
 
-  .ort-meta .sep { opacity: 0.4; }
-
   .ort-kommentar {
     font-size: 0.84rem;
     color: #5C5449;
@@ -356,11 +334,7 @@
     flex-wrap: wrap;
   }
 
-  .ort-tags {
-    display: flex;
-    gap: 0.35rem;
-    flex-wrap: wrap;
-  }
+  .ort-tags { display: flex; gap: 0.35rem; flex-wrap: wrap; }
 
   .otag {
     font-size: 0.62rem;
@@ -396,30 +370,17 @@
     transition: all 0.12s;
   }
 
-  .maps-link:hover {
-    background: var(--ink);
-    color: var(--white);
-    border-color: var(--ink);
-  }
+  .maps-link:hover { background: var(--ink); color: var(--white); border-color: var(--ink); }
 
-  /* Keine Ergebnisse */
   .keine-ergebnisse {
     text-align: center;
     padding: 3rem 1rem;
     color: var(--muted);
   }
 
-  .keine-ergebnisse p:first-child {
-    font-size: 2rem;
-    margin-bottom: 0.75rem;
-  }
+  .keine-ergebnisse p:first-child { font-size: 2rem; margin-bottom: 0.75rem; }
+  .keine-ergebnisse p:last-child { font-size: 0.85rem; line-height: 1.6; }
 
-  .keine-ergebnisse p:last-child {
-    font-size: 0.85rem;
-    line-height: 1.6;
-  }
-
-  /* Neu starten */
   .neu-starten {
     margin-top: 2.5rem;
     display: inline-block;
@@ -438,7 +399,6 @@
   }
   .neu-starten:hover { color: var(--ink); }
 
-  /* ── FOOTER ── */
   footer {
     text-align: center;
     padding: 2rem;
@@ -447,7 +407,6 @@
     letter-spacing: 0.05em;
   }
 
-  /* ── RESPONSIVE ── */
   @media (max-width: 480px) {
     header { padding: 1rem 1.25rem; }
     main { padding: 2rem 1.25rem 5rem; }
@@ -460,41 +419,35 @@
 <header>
   <div class="logo">The Local<span>List</span></div>
   <nav style="display:flex;align-items:center;gap:1.5rem;">
-    <a href="index.html" style="font-size:0.78rem;color:var(--muted);text-decoration:none;letter-spacing:0.04em;transition:color 0.12s;" onmouseover="this.style.color='var(--ink)'" onmouseout="this.style.color='var(--muted)'">Finder</a>
-    <a href="liste.html" style="font-size:0.78rem;color:var(--muted);text-decoration:none;letter-spacing:0.04em;transition:color 0.12s;" onmouseover="this.style.color='var(--ink)'" onmouseout="this.style.color='var(--muted)'">Alle Orte</a>
+    <a href="index.html" style="font-size:0.78rem;color:var(--ink);text-decoration:none;letter-spacing:0.04em;font-weight:600;">Finder</a>
+    <a href="liste.html" style="font-size:0.78rem;color:var(--muted);text-decoration:none;letter-spacing:0.04em;" onmouseover="this.style.color='var(--ink)'" onmouseout="this.style.color='var(--muted)'">Alle Orte</a>
   </nav>
 </header>
 
 <main>
 
-  <!-- ── START ── -->
   <div id="start" class="screen aktiv">
     <div class="start-intro">
       <p class="start-label">Kuratierte Orte · Berlin</p>
       <h1 class="start-titel">Wo gehst du<br>heute <em>essen?</em></h1>
-      <p class="start-text">
-        Keine endlosen Listen, keine Algorithmen. Nur Orte die ich selbst kenne — 
-        ausgewählt für genau deinen Moment.
-      </p>
-      <button class="start-btn" onclick="zeigeQuiz()">Empfehlung starten →</button>
+      <p class="start-text">Keine endlosen Listen, keine Algorithmen. Nur Orte die ich selbst kenne, ausgewaehlt fuer genau deinen Moment.</p>
+      <button class="start-btn" onclick="zeigeQuiz()">Empfehlung starten &rarr;</button>
     </div>
     <div class="start-hinweis">
-      <span>✦</span>
+      <span>&#10022;</span>
       <span id="anzahl-orte"></span>
     </div>
   </div>
 
-  <!-- ── QUIZ ── -->
   <div id="quiz" class="screen">
     <div class="fortschritt" id="fortschritt"></div>
     <div id="frage-bereich"></div>
     <div class="quiz-nav">
-      <button class="btn-zurueck" id="btn-zurueck" onclick="zurueck()">← Zurück</button>
-      <button class="btn-weiter" id="btn-weiter" onclick="weiter()" disabled>Weiter →</button>
+      <button class="btn-zurueck" id="btn-zurueck" onclick="zurueck()">&larr; Zurueck</button>
+      <button class="btn-weiter" id="btn-weiter" onclick="weiter()" disabled>Weiter &rarr;</button>
     </div>
   </div>
 
-  <!-- ── ERGEBNISSE ── -->
   <div id="ergebnisse" class="screen">
     <div class="ergebnis-header">
       <p class="ergebnis-label">Deine Empfehlungen</p>
@@ -502,40 +455,37 @@
       <p class="ergebnis-sub" id="ergebnis-sub"></p>
     </div>
     <div id="karten-liste"></div>
-    <button class="neu-starten" onclick="neuStarten()">↺ Neue Suche starten</button>
+    <button class="neu-starten" onclick="neuStarten()">&#8635; Neue Suche starten</button>
   </div>
 
 </main>
 
-<footer>The Local List · Berlin</footer>
+<footer>The Local List &middot; Berlin</footer>
 
-<!-- Daten laden -->
 <script src="data.js"></script>
+<script src="places.js"></script>
 
 <script>
-// ─────────────────────────────────────────────
-// FRAGEN
-// ─────────────────────────────────────────────
 const FRAGEN = [
   {
     id: "tageszeit",
-    text: "Wann möchtest du hin?",
+    text: "Wann moechtest du hin?",
     hint: "",
     optionen: [
-      { wert: "brunch", icon: "☕", label: "Brunch / Café" },
+      { wert: "brunch", icon: "☕", label: "Brunch / Cafe" },
       { wert: "lunch",  icon: "🌤", label: "Lunch" },
       { wert: "dinner", icon: "🌙", label: "Dinner" },
     ]
   },
   {
     id: "vibe",
-    text: "Wie soll's sich anfühlen?",
-    hint: "Mehrere Antworten möglich.",
+    text: "Wie soll's sich anfuehlen?",
+    hint: "Mehrere Antworten moeglich.",
     multi: true,
     optionen: [
-      { wert: "entspannt", icon: "🌿", label: "Entspannt & gemütlich" },
+      { wert: "entspannt", icon: "🌿", label: "Entspannt & gemuetlich" },
       { wert: "lebendig",  icon: "⚡", label: "Lebendig & laut" },
-      { wert: "draussen",  icon: "☀️", label: "Draußen / Terrasse" },
+      { wert: "draussen",  icon: "☀️", label: "Draussen / Terrasse" },
       { wert: "besonders", icon: "✨", label: "Besonderer Abend" },
       { wert: "schnell",   icon: "🚀", label: "Schnell & unkompliziert" },
     ]
@@ -543,70 +493,44 @@ const FRAGEN = [
   {
     id: "budget",
     text: "Was darf's kosten?",
-    hint: "Pro Person, ohne Getränke.",
+    hint: "Pro Person, ohne Getraenke.",
     optionen: [
-      { wert: "low",  icon: "○", label: "Bis 10 €" },
-      { wert: "mid",  icon: "○○", label: "10 bis 25 €" },
-      { wert: "high", icon: "○○○", label: "Über 25 €" },
+      { wert: "low",  icon: "○",   label: "Bis 10 Euro" },
+      { wert: "mid",  icon: "○○",  label: "10 bis 25 Euro" },
+      { wert: "high", icon: "○○○", label: "Ueber 25 Euro" },
     ]
   },
 ];
 
-// ─────────────────────────────────────────────
-// ALGORITHMUS — Scoring
-// ─────────────────────────────────────────────
 function berechneScore(ort, antworten) {
   let score = 0;
-
-  // Tageszeit — Pflicht (kein Match = Ausschluss)
   if (!ort.tageszeit.includes(antworten.tageszeit)) return -1;
   score += 3;
-
-  // Vibe — je mehr Übereinstimmungen desto besser
   const vibes = antworten.vibe || [];
   const vibeMatches = vibes.filter(v => ort.vibe.includes(v)).length;
-  if (vibeMatches === 0) return -1; // kein Vibe-Match = Ausschluss
+  if (vibeMatches === 0) return -1;
   score += vibeMatches * 3;
-
-  // Budget — exakter Match am besten, eine Stufe daneben ok
   const budgets = ["low", "mid", "high"];
   const userB = budgets.indexOf(antworten.budget);
   const ortB  = budgets.indexOf(ort.budget);
   const diff  = Math.abs(userB - ortB);
   if (diff === 0) score += 4;
   else if (diff === 1) score += 1;
-  // diff >= 2: kein Bonus, aber kein Ausschluss
-
-  // Hintergrund-Tags als Gewichtung
-  // Besonderer Abend + Reservierung empfohlen passt gut
   if (vibes.includes("besonders") && ort.reservierung) score += 1;
-  // Schnell & unkompliziert + Walk-in möglich passt gut
   if (vibes.includes("schnell") && ort.walkin) score += 1;
-  // Cash only als kleine Warnung bei hohem Budget
   if (ort.cashonly && antworten.budget === "high") score -= 1;
-  // Vegan friendly als kleiner Bonus (immer gut zu wissen)
   if (ort.vegan) score += 0.5;
-
   return score;
 }
 
-// ─────────────────────────────────────────────
-// STATE
-// ─────────────────────────────────────────────
 let schritt = 0;
 let antworten = {};
 
-// ─────────────────────────────────────────────
-// INIT
-// ─────────────────────────────────────────────
 document.addEventListener("DOMContentLoaded", () => {
   document.getElementById("anzahl-orte").textContent =
-    `${ORTE.length} kuratierte Orte · persönlich besucht & bewertet`;
+    ORTE.length + " kuratierte Orte - persoenlich besucht & bewertet";
 });
 
-// ─────────────────────────────────────────────
-// NAVIGATION
-// ─────────────────────────────────────────────
 function zeigScreen(id) {
   document.querySelectorAll(".screen").forEach(s => s.classList.remove("aktiv"));
   document.getElementById(id).classList.add("aktiv");
@@ -620,21 +544,13 @@ function zeigeQuiz() {
 }
 
 function weiter() {
-  if (schritt < FRAGEN.length - 1) {
-    schritt++;
-    rendereSchritt();
-  } else {
-    zeigeErgebnisse();
-  }
+  if (schritt < FRAGEN.length - 1) { schritt++; rendereSchritt(); }
+  else { zeigeErgebnisse(); }
 }
 
 function zurueck() {
-  if (schritt === 0) {
-    zeigScreen("start");
-  } else {
-    schritt--;
-    rendereSchritt();
-  }
+  if (schritt === 0) { zeigScreen("start"); }
+  else { schritt--; rendereSchritt(); }
 }
 
 function neuStarten() {
@@ -643,48 +559,31 @@ function neuStarten() {
   zeigScreen("start");
 }
 
-// ─────────────────────────────────────────────
-// QUIZ RENDERN
-// ─────────────────────────────────────────────
 function rendereSchritt() {
   const frage = FRAGEN[schritt];
-
-  // Fortschrittsbalken
   const fort = document.getElementById("fortschritt");
   fort.innerHTML = FRAGEN.map((_, i) => {
     let cls = "f-seg";
     if (i < schritt) cls += " fertig";
     else if (i === schritt) cls += " aktiv-f";
-    return `<div class="${cls}"></div>`;
+    return '<div class="' + cls + '"></div>';
   }).join("");
-
-  // Aktuelle Auswahl
-  const aktuell = antworten[frage.id];
   const istMulti = frage.multi;
-
-  // Frage rendern
-  document.getElementById("frage-bereich").innerHTML = `
-    <p class="frage-nr">Frage ${schritt + 1} von ${FRAGEN.length}</p>
-    <h2 class="frage-text">${frage.text}</h2>
-    ${frage.hint ? `<p class="frage-hint">${frage.hint}</p>` : ""}
-    <div class="optionen">
-      ${frage.optionen.map(opt => `
-        <button class="opt ${istGewaehlt(frage.id, opt.wert) ? "gewaehlt" : ""}"
-                onclick="waehle('${frage.id}', '${opt.wert}', ${!!istMulti})">
-          <span class="opt-icon">${opt.icon}</span>
-          <span>${opt.label}</span>
-        </button>
-      `).join("")}
-    </div>
-  `;
-
-  // Zurück-Button
-  document.getElementById("btn-zurueck").style.visibility =
-    schritt === 0 ? "hidden" : "visible";
-
-  // Weiter-Button
+  document.getElementById("frage-bereich").innerHTML =
+    '<p class="frage-nr">Frage ' + (schritt + 1) + ' von ' + FRAGEN.length + '</p>' +
+    '<h2 class="frage-text">' + frage.text + '</h2>' +
+    (frage.hint ? '<p class="frage-hint">' + frage.hint + '</p>' : '') +
+    '<div class="optionen">' +
+    frage.optionen.map(opt =>
+      '<button class="opt ' + (istGewaehlt(frage.id, opt.wert) ? "gewaehlt" : "") + '" ' +
+      'onclick="waehle(\'' + frage.id + '\', \'' + opt.wert + '\', ' + (!!istMulti) + ')">' +
+      '<span class="opt-icon">' + opt.icon + '</span>' +
+      '<span>' + opt.label + '</span></button>'
+    ).join("") +
+    '</div>';
+  document.getElementById("btn-zurueck").style.visibility = schritt === 0 ? "hidden" : "visible";
   const btnW = document.getElementById("btn-weiter");
-  btnW.textContent = schritt === FRAGEN.length - 1 ? "Empfehlungen zeigen →" : "Weiter →";
+  btnW.textContent = schritt === FRAGEN.length - 1 ? "Empfehlungen zeigen" : "Weiter";
   aktualisiereWeiter();
 }
 
@@ -713,20 +612,14 @@ function aktualisiereWeiter() {
   document.getElementById("btn-weiter").disabled = !hatAntwort;
 }
 
-// ─────────────────────────────────────────────
-// ERGEBNISSE
-// ─────────────────────────────────────────────
 function zeigeErgebnisse() {
   zeigScreen("ergebnisse");
-
-  // Scoring
   const bewertet = ORTE
-    .map(ort => ({ ...ort, score: berechneScore(ort, antworten) }))
+    .map(ort => Object.assign({}, ort, { score: berechneScore(ort, antworten) }))
     .filter(ort => ort.score > 0)
     .sort((a, b) => b.score - a.score)
     .slice(0, 5);
 
-  // Titel
   const vibeTitel = {
     entspannt: "Ein entspannter Abend",
     lebendig:  "Lebendig & mittendrin",
@@ -735,66 +628,56 @@ function zeigeErgebnisse() {
     schnell:   "Schnell & gut",
   };
   const ersterVibe = (antworten.vibe || [])[0];
-  document.getElementById("ergebnis-titel").textContent =
-    vibeTitel[ersterVibe] || "Deine Empfehlungen";
+  document.getElementById("ergebnis-titel").textContent = vibeTitel[ersterVibe] || "Deine Empfehlungen";
+  document.getElementById("ergebnis-sub").textContent = bewertet.length > 0
+    ? bewertet.length + " " + (bewertet.length === 1 ? "Ort passt" : "Orte passen") + " zu deinem Moment - persoenlich kuratiert."
+    : "";
 
-  document.getElementById("ergebnis-sub").textContent =
-    bewertet.length > 0
-      ? `${bewertet.length} ${bewertet.length === 1 ? "Ort passt" : "Orte passen"} zu deinem Moment — persönlich kuratiert.`
-      : "";
-
-  // Karten
   const liste = document.getElementById("karten-liste");
+  const budgetLabel = { low: "bis 10 Euro", mid: "10-25 Euro", high: "25 Euro+" };
 
   if (bewertet.length === 0) {
-    liste.innerHTML = `
-      <div class="keine-ergebnisse">
-        <p>🤔</p>
-        <p>Für diese Kombination habe ich gerade keinen passenden Ort.<br>
-        Probier es mit anderen Einstellungen — die Liste wächst stetig.</p>
-      </div>
-    `;
+    liste.innerHTML = '<div class="keine-ergebnisse"><p>🤔</p><p>Fuer diese Kombination habe ich gerade keinen passenden Ort. Probier es mit anderen Einstellungen.</p></div>';
     return;
   }
 
-  // Budget-Label
-  const budgetLabel = { low: "bis 10 €", mid: "10–25 €", high: "25 €+" };
-
-  liste.innerHTML = bewertet.map((ort, i) => {
-
-    // Hintergrund-Tags als Infos anzeigen
+  liste.innerHTML = bewertet.map(function(ort, i) {
     const infoTags = [];
-    if (ort.vegan)       infoTags.push({ text: "Vegan friendly", highlight: true });
-    if (ort.reservierung) infoTags.push({ text: "Reservierung empfohlen", highlight: false });
-    if (ort.walkin)      infoTags.push({ text: "Walk-in möglich", highlight: false });
-    if (ort.cashonly)    infoTags.push({ text: "Cash only", highlight: false });
-    if (ort.kueche)      infoTags.push({ text: ort.kueche, highlight: false });
-
-    return `
-      <div class="ort-karte" style="animation-delay: ${i * 0.07}s">
-        <div class="ort-oben">
-          <div class="ort-name">${ort.name}</div>
-          <div class="ort-budget">${budgetLabel[ort.budget]}</div>
-        </div>
-        <div class="ort-meta">
-          <span>${ort.kiez}</span>
-        </div>
-        <p class="ort-kommentar">${ort.kommentar}</p>
-        <div class="ort-unten">
-          <div class="ort-tags">
-            ${infoTags.map(t =>
-              `<span class="otag ${t.highlight ? "highlight" : ""}">${t.text}</span>`
-            ).join("")}
-          </div>
-          <a class="maps-link" href="${ort.maps}" target="_blank" rel="noopener">
-            ↗ Maps
-          </a>
-        </div>
-      </div>
-    `;
+    if (ort.vegan)        infoTags.push('<span class="otag highlight">Vegan friendly</span>');
+    if (ort.reservierung) infoTags.push('<span class="otag">Reservierung empfohlen</span>');
+    if (ort.walkin)       infoTags.push('<span class="otag">Walk-in moeglich</span>');
+    if (ort.cashonly)     infoTags.push('<span class="otag">Cash only</span>');
+    if (ort.kueche)       infoTags.push('<span class="otag">' + ort.kueche + '</span>');
+    return '<div class="ort-karte" data-name="' + ort.name + '" style="animation-delay:' + (i * 0.07) + 's">' +
+      '<div class="ort-foto"></div>' +
+      '<div class="ort-oben"><div class="ort-name">' + ort.name + '</div><div class="ort-budget">' + budgetLabel[ort.budget] + '</div></div>' +
+      '<div class="ort-meta"><span>' + ort.kiez + '</span></div>' +
+      '<p class="ort-kommentar">' + ort.kommentar + '</p>' +
+      '<div class="ort-unten"><div class="ort-tags">' + infoTags.join("") + '</div>' +
+      '<a class="maps-link" href="' + ort.maps + '" target="_blank" rel="noopener">&#8599; Maps</a></div></div>';
   }).join("");
+
+  // Fotos nachladen
+  if (typeof ladeFotos === "function") {
+    ladeFotos(bewertet, function(ort, fotoUrl) {
+      var karte = document.querySelector('[data-name="' + ort.name + '"]');
+      if (karte) {
+        var fotoEl = karte.querySelector(".ort-foto");
+        if (fotoEl) {
+          fotoEl.style.backgroundImage = "url(" + fotoUrl + ")";
+          fotoEl.classList.add("geladen");
+        }
+      }
+    });
+  }
+}
+
+function initPlaces() {
+  // Google Maps API bereit
 }
 </script>
+
+<script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC-_ePhbQ89N2T8hpg4a5gzgeGeN3Pqo0I&libraries=places&callback=initPlaces"></script>
 
 </body>
 </html>
