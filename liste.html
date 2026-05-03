@@ -540,6 +540,7 @@ function rendereKarten() {
         </div>
         <div class="ort-meta">${ort.kiez}${ort.kueche ? " · " + ort.kueche : ""}</div>
         <p class="ort-kommentar">${ort.kommentar}</p>
+        <div class="ort-place-info"></div>
         <div class="ort-unten">
           <div class="ort-tags">
             ${vibeTags}
@@ -556,14 +557,24 @@ function rendereKarten() {
 document.addEventListener("DOMContentLoaded", rendereKarten);
 
 function initPlaces() {
-  ladeFotos(ORTE, (ort, fotoUrl) => {
+  injectPlacesCSS();
+  ladePlacesDaten(ORTE, (ort, daten) => {
     const karte = document.querySelector(`[data-name="${CSS.escape(ort.name)}"]`);
-    if (karte) {
+    if (!karte) return;
+
+    // Foto
+    if (daten.foto) {
       const fotoEl = karte.querySelector(".ort-foto");
       if (fotoEl) {
-        fotoEl.style.backgroundImage = `url(${fotoUrl})`;
+        fotoEl.style.backgroundImage = `url(${daten.foto})`;
         fotoEl.classList.add("geladen");
       }
+    }
+
+    // Info-Block
+    const infoContainer = karte.querySelector(".ort-place-info");
+    if (infoContainer) {
+      infoContainer.innerHTML = baueInfoBlock(daten);
     }
   });
 }
