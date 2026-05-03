@@ -653,27 +653,37 @@ function zeigeErgebnisse() {
       '<div class="ort-oben"><div class="ort-name">' + ort.name + '</div><div class="ort-budget">' + budgetLabel[ort.budget] + '</div></div>' +
       '<div class="ort-meta"><span>' + ort.kiez + '</span></div>' +
       '<p class="ort-kommentar">' + ort.kommentar + '</p>' +
+      '<div class="ort-place-info"></div>' +
       '<div class="ort-unten"><div class="ort-tags">' + infoTags.join("") + '</div>' +
       '<a class="maps-link" href="' + ort.maps + '" target="_blank" rel="noopener">&#8599; Maps</a></div></div>';
   }).join("");
 
-  // Fotos nachladen
-  if (typeof ladeFotos === "function") {
-    ladeFotos(bewertet, function(ort, fotoUrl) {
+  // Places Daten nachladen
+  if (typeof ladePlacesDaten === "function") {
+    ladePlacesDaten(bewertet, function(ort, daten) {
       var karte = document.querySelector('[data-name="' + ort.name + '"]');
-      if (karte) {
+      if (!karte) return;
+
+      // Foto
+      if (daten.foto) {
         var fotoEl = karte.querySelector(".ort-foto");
         if (fotoEl) {
-          fotoEl.style.backgroundImage = "url(" + fotoUrl + ")";
+          fotoEl.style.backgroundImage = "url(" + daten.foto + ")";
           fotoEl.classList.add("geladen");
         }
+      }
+
+      // Info-Block einfuegen
+      var infoContainer = karte.querySelector(".ort-place-info");
+      if (infoContainer) {
+        infoContainer.innerHTML = baueInfoBlock(daten);
       }
     });
   }
 }
 
 function initPlaces() {
-  // Google Maps API bereit
+  injectPlacesCSS();
 }
 </script>
 
