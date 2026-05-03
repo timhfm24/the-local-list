@@ -44,6 +44,20 @@ const ORTE = [
     walkin: true,
     cashonly: false,
   },
+  {
+    name: "Coccodrillo",
+    kiez: "Mitte",
+    maps: "https://maps.app.goo.gl/WMoVs9E2V637gsDd7",
+    kommentar: "Stilvolles italienisches Restaurant mit außergewöhnlicher Einrichtung, das direkt für ein besonderes Ambiente sorgt. Die Küche bietet klassische italienische Gerichte, wobei vor allem die Vorspeisen überzeugen, besonders Stracciatella und frittierte Lasagne (wechselnde Karte). Die Trüffelpasta ist das klare Highlight. Die Pizza fällt preislich etwas ab. Insgesamt etwas teurer, aber das Erlebnis lohnt sich, früh reservieren.",
+    kueche: "Italienisch",
+    tageszeit: ["lunch", "dinner"],
+    vibe: ["besonders","lebendig"],
+    budget: "mid","high",
+    vegan: true,
+    reservierung: true,
+    walkin: false,
+    cashonly: false,
+  },
 
   {
     name: "Inari-San Berlin",
