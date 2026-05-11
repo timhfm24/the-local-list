@@ -1,24 +1,36 @@
-const API_KEY = "AIzaSyCLeisSqYANXUYJ1BCg1hQe6r3AubVYbG0";
+const API_KEY = "AIzaSyAiQAEBL9W2BvztAcZRxh4mP-SujNVf8uQ";
 const ortCache = {};
 let placesService = null;
+let mapsReady = null;
 
 async function ladeGoogleMaps() {
-  if (window.google && google.maps && google.maps.places) return;
+  if (mapsReady) return mapsReady;
 
-  if (!window.google || !google.maps) {
-    await new Promise((resolve, reject) => {
-      const s = document.createElement("script");
-      s.src = `https://maps.googleapis.com/maps/api/js?key=${API_KEY}&libraries=places&callback=__mapsReady`;
-      s.onerror = reject;
-      window.__mapsReady = resolve;
-      document.head.append(s);
-    });
-    delete window.__mapsReady;
-  }
+  mapsReady = new Promise((resolve, reject) => {
+    if (window.google && google.maps && google.maps.places) {
+      resolve();
+      return;
+    }
 
-  if (!google.maps.places) {
-    await google.maps.importLibrary("places");
-  }
+    const existing = document.querySelector('script[src*="maps.googleapis.com"]');
+    if (existing) {
+      existing.addEventListener("load", resolve);
+      existing.addEventListener("error", reject);
+      return;
+    }
+
+    window.__mapsReady = () => {
+      delete window.__mapsReady;
+      resolve();
+    };
+
+    const s = document.createElement("script");
+    s.src = `https://maps.googleapis.com/maps/api/js?key=${API_KEY}&libraries=places&callback=__mapsReady`;
+    s.onerror = () => { delete window.__mapsReady; reject(new Error("Google Maps load failed")); };
+    document.head.append(s);
+  });
+
+  return mapsReady;
 }
 
 async function ladeOrtDaten(name, kiez) {
@@ -75,8 +87,8 @@ async function ladeOrtDaten(name, kiez) {
 }
 
 function ladePlacesDaten(orte, callback) {
-  orte.forEach(function(ort) {
-    ladeOrtDaten(ort.name, ort.kiez).then(function(daten) {
+  orte.forEach(function (ort) {
+    ladeOrtDaten(ort.name, ort.kiez).then(function (daten) {
       if (daten) callback(ort, daten);
     });
   });
@@ -110,4 +122,4 @@ function baueInfoBlock(daten) {
   return '<div style="display:flex;flex-wrap:wrap;gap:0.5rem;align-items:center;margin-bottom:0.75rem;font-size:0.78rem;">' + teile.join("") + '</div>';
 }
 
-async function initPlaces() {}
+async function initPlaces() { }
