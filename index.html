@@ -491,13 +491,10 @@ function zeigeErgebnisse() {
       '<a class="maps-link" href="' + ort.maps + '" target="_blank" rel="noopener">&#8599; Maps</a></div></div>';
   }).join("");
 
-  // Places Daten nachladen
   if (typeof ladePlacesDaten === "function") {
     ladePlacesDaten(bewertet, function(ort, daten) {
       var karte = document.querySelector('[data-name="' + ort.name + '"]');
       if (!karte) return;
-
-      // Foto
       if (daten.foto) {
         var fotoEl = karte.querySelector(".ort-foto");
         if (fotoEl) {
@@ -505,8 +502,6 @@ function zeigeErgebnisse() {
           fotoEl.classList.add("geladen");
         }
       }
-
-      // Info-Block einfuegen
       var infoContainer = karte.querySelector(".ort-place-info");
       if (infoContainer) {
         infoContainer.innerHTML = baueInfoBlock(daten);
@@ -519,7 +514,6 @@ function initPlaces() {
   injectPlacesCSS();
 }
 
-// Startet Places sobald die Seite geladen ist
 window.addEventListener("load", function() {
   injectPlacesCSS();
 });
