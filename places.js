@@ -47,10 +47,10 @@ async function ladeOrtDaten(name, kiez) {
 
     const request = {
       query: `${name} ${kiez} Berlin`,
-      fields: ["name", "formatted_address", "rating", "user_ratings_total", "photos", "website", "formatted_phone_number", "opening_hours", "url"],
+      fields: ["name", "formatted_address", "rating", "user_ratings_total", "photos", "opening_hours", "place_id"],
     };
 
-    const results = await new Promise((resolve, reject) => {
+    const place = await new Promise((resolve, reject) => {
       placesService.findPlaceFromQuery(request, (results, status) => {
         if (status === google.maps.places.PlacesServiceStatus.OK && results && results.length > 0) {
           resolve(results[0]);
@@ -60,20 +60,36 @@ async function ladeOrtDaten(name, kiez) {
       });
     });
 
+    const detailRequest = {
+      placeId: place.place_id,
+      fields: ["website", "formatted_phone_number", "opening_hours", "url"],
+    };
+
+    const details = await new Promise((resolve, reject) => {
+      placesService.getDetails(detailRequest, (result, status) => {
+        if (status === google.maps.places.PlacesServiceStatus.OK) {
+          resolve(result);
+        } else {
+          resolve(null);
+        }
+      });
+    });
+
+    const heuteIndex = new Date().getDay() === 0 ? 6 : new Date().getDay() - 1;
     const ergebnis = {
-      foto: results.photos && results.photos.length > 0
-        ? results.photos[0].getUrl({ maxWidth: 600 })
+      foto: place.photos && place.photos.length > 0
+        ? place.photos[0].getUrl({ maxWidth: 600 })
         : null,
-      bewertung: results.rating || null,
-      rezensionen: results.user_ratings_total || null,
-      adresse: results.formatted_address || null,
-      telefon: results.formatted_phone_number || null,
-      website: results.website || null,
-      heuteText: results.opening_hours ? results.opening_hours.weekday_text[new Date().getDay() === 0 ? 6 : new Date().getDay() - 1] : null,
-      jetztOffen: results.opening_hours ? results.opening_hours.isOpen() : null,
+      bewertung: place.rating || null,
+      rezensionen: place.user_ratings_total || null,
+      adresse: place.formatted_address || null,
+      telefon: details && details.formatted_phone_number ? details.formatted_phone_number : null,
+      website: details && details.website ? details.website : null,
+      heuteText: details && details.opening_hours ? details.opening_hours.weekday_text[heuteIndex] : null,
+      jetztOffen: place.opening_hours ? place.opening_hours.isOpen() : (details && details.opening_hours ? details.opening_hours.isOpen() : null),
       reservierbar: false,
-      mapsUrl: results.url || null,
-      wochentag: results.opening_hours ? results.opening_hours.weekday_text : null,
+      mapsUrl: details && details.url ? details.url : null,
+      wochentag: details && details.opening_hours ? details.opening_hours.weekday_text : null,
     };
 
     ortCache[cacheKey] = ergebnis;
