@@ -344,8 +344,8 @@ function berechneScore(ort, antworten) {
   score += vibeMatches * 3;
   const budgets = ["low", "mid", "high"];
   const userB = budgets.indexOf(antworten.budget);
-  const ortB  = budgets.indexOf(ort.budget);
-  const diff  = Math.abs(userB - ortB);
+  const diffs = ort.budget.map(b => Math.abs(userB - budgets.indexOf(b)));
+  const diff = Math.min(...diffs);
   if (diff === 0) score += 4;
   else if (diff === 1) score += 1;
   if (vibes.includes("besonders") && ort.reservierung) score += 1;
@@ -467,6 +467,7 @@ function zeigeErgebnisse() {
 
   const liste = document.getElementById("karten-liste");
   const budgetLabel = { low: "bis 10 Euro", mid: "10-25 Euro", high: "25 Euro+" };
+  function formatBudget(b) { return b.map(x => budgetLabel[x]).join(" / "); }
 
   if (bewertet.length === 0) {
     liste.innerHTML = '<div class="keine-ergebnisse"><p>🤔</p><p>Fuer diese Kombination habe ich gerade keinen passenden Ort. Probier es mit anderen Einstellungen.</p></div>';
@@ -482,7 +483,7 @@ function zeigeErgebnisse() {
     if (ort.kueche)       infoTags.push('<span class="otag">' + ort.kueche + '</span>');
     return '<div class="ort-karte" data-name="' + ort.name + '" style="animation-delay:' + (i * 0.07) + 's">' +
       '<div class="ort-foto"></div>' +
-      '<div class="ort-oben"><div class="ort-name">' + ort.name + '</div><div class="ort-budget">' + budgetLabel[ort.budget] + '</div></div>' +
+      '<div class="ort-oben"><div class="ort-name">' + ort.name + '</div><div class="ort-budget">' + formatBudget(ort.budget) + '</div></div>' +
       '<div class="ort-meta"><span>' + ort.kiez + '</span></div>' +
       '<p class="ort-kommentar">' + ort.kommentar + '</p>' +
       '<div class="ort-place-info"></div>' +

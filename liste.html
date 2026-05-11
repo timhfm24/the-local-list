@@ -349,7 +349,7 @@ function passt(ort) {
 
   // Budget — mindestens einer muss passen
   if (aktiveFilter.budget.length > 0) {
-    if (!aktiveFilter.budget.includes(ort.budget)) return false;
+    if (!aktiveFilter.budget.some(b => ort.budget.includes(b))) return false;
   }
 
   // Extras — alle ausgewählten müssen passen
@@ -361,7 +361,8 @@ function passt(ort) {
 }
 
 // ── RENDERN ──
-const budgetLabel = { low: "bis 10 €", mid: "10–25 €", high: "25 €+" };
+  const budgetLabel = { low: "bis 10 €", mid: "10–25 €", high: "25 €+" };
+  function formatBudget(b) { return b.map(x => budgetLabel[x]).join(" / "); }
 
 const tagLabels = {
   brunch: "Brunch/Café", lunch: "Lunch", dinner: "Dinner",
@@ -411,7 +412,7 @@ function rendereKarten() {
         <div class="ort-foto"></div>
         <div class="ort-oben">
           <div class="ort-name">${ort.name}</div>
-          <div class="ort-budget">${budgetLabel[ort.budget]}</div>
+          <div class="ort-budget">${formatBudget(ort.budget)}</div>
         </div>
         <div class="ort-meta">${ort.kiez}${ort.kueche ? " · " + ort.kueche : ""}</div>
         <p class="ort-kommentar">${ort.kommentar}</p>
@@ -453,6 +454,7 @@ function initPlaces() {
 window.addEventListener("load", function() {
   setTimeout(initPlaces, 500);
 });
+</script>
 
 </body>
 </html>
