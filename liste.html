@@ -431,27 +431,26 @@ function rendereKarten() {
 
 document.addEventListener("DOMContentLoaded", rendereKarten);
 
-function initPlaces() {
-  injectPlacesCSS();
-  ladePlacesDaten(ORTE, (ort, daten) => {
-    const karte = document.querySelector(`[data-name="${CSS.escape(ort.name)}"]`);
-    if (!karte) return;
-    if (daten.foto) {
-      const fotoEl = karte.querySelector(".ort-foto");
-      if (fotoEl) {
-        fotoEl.style.backgroundImage = `url(${daten.foto})`;
-        fotoEl.classList.add("geladen");
-      }
-    }
-    const infoContainer = karte.querySelector(".ort-place-info");
-    if (infoContainer) {
-      infoContainer.innerHTML = baueInfoBlock(daten);
-    }
-  });
-}
-
 window.addEventListener("load", function() {
-  setTimeout(initPlaces, 500);
+  if (typeof ladePlacesDaten === "function") {
+    setTimeout(function() {
+      ladePlacesDaten(ORTE, function(ort, daten) {
+        var karte = document.querySelector('[data-name="' + CSS.escape(ort.name) + '"]');
+        if (!karte) return;
+        if (daten.foto) {
+          var fotoEl = karte.querySelector(".ort-foto");
+          if (fotoEl) {
+            fotoEl.style.backgroundImage = "url(" + daten.foto + ")";
+            fotoEl.classList.add("geladen");
+          }
+        }
+        var infoContainer = karte.querySelector(".ort-place-info");
+        if (infoContainer) {
+          infoContainer.innerHTML = baueInfoBlock(daten);
+        }
+      });
+    }, 500);
+  }
 });
 </script>
 

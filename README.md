@@ -10,8 +10,28 @@ Kuratierte Restaurant-Empfehlungen für Berlin. Keine Algorithmen, keine endlose
 ## Tech-Stack
 
 - Vanilla HTML/CSS/JS, kein Build-System
-- Google Places API über Vercel Serverless Function (`api/maps.js`)
-- Deployment via Vercel
+- Google Places API (client-side, geladen über `places.js`)
+- Hosting: GitHub Pages oder statisches Hosting
+
+## Google Places API
+
+Die Seite lädt Fotos, Bewertungen, Öffnungszeiten, Adresse, Telefon und Website automatisch über die Google Places API. Der API Key liegt in `places.js` und ist im Frontend sichtbar — das ist bei Client-side Maps-Nutzung unavoidable.
+
+### API Key absichern (zwingend)
+
+1. **Google Cloud Console** → APIs & Services → Credentials → deinen Key anklicken
+2. **Application restrictions** → HTTP referrers → folgende Referrer hinzufügen:
+   - `http://localhost:*` (lokale Entwicklung)
+   - `https://DEIN_GITHUB_USERNAME.github.io/*` (GitHub Pages)
+   - Weitere Domains falls nötig
+3. **API restrictions** → Only specific APIs → **Maps JavaScript API** + **Places API** auswählen
+4. **Billing** → Ein Billing-Konto ist erforderlich, auch im Free-Tier ($200 Freiguthaben/Monat)
+
+### Benötigte APIs aktivieren
+
+In der Google Cloud Console:
+- Maps JavaScript API
+- Places API
 
 ## Neuen Ort hinzufügen
 
