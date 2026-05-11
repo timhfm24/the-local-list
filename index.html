@@ -5,53 +5,8 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>The Local List — Berlin</title>
 <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,600;1,400;1,600&family=Mulish:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
 <style>
-  :root {
-    --bg:        #F7F3EE;
-    --bg2:       #EDE7DC;
-    --ink:       #1E1B17;
-    --muted:     #8C8278;
-    --border:    #D9D0C4;
-    --accent:    #C4501A;
-    --accent2:   #4A7C59;
-    --tag-bg:    #E8E1D6;
-    --white:     #FDFAF7;
-  }
-
-  * { margin: 0; padding: 0; box-sizing: border-box; }
-  html { scroll-behavior: smooth; }
-
-  body {
-    background: var(--bg);
-    color: var(--ink);
-    font-family: 'Mulish', sans-serif;
-    font-weight: 400;
-    min-height: 100vh;
-    -webkit-font-smoothing: antialiased;
-  }
-
-  header {
-    background: var(--white);
-    border-bottom: 1px solid var(--border);
-    padding: 1.25rem 2rem;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    position: sticky;
-    top: 0;
-    z-index: 50;
-  }
-
-  .logo {
-    font-family: 'Lora', serif;
-    font-size: 1.2rem;
-    font-weight: 600;
-    letter-spacing: -0.01em;
-    color: var(--ink);
-  }
-
-  .logo span { color: var(--accent); }
-
   main {
     max-width: 640px;
     margin: 0 auto;
@@ -60,11 +15,6 @@
 
   .screen { display: none; }
   .screen.aktiv { display: block; animation: einblenden 0.35s ease; }
-
-  @keyframes einblenden {
-    from { opacity: 0; transform: translateY(10px); }
-    to   { opacity: 1; transform: translateY(0); }
-  }
 
   .start-intro { margin-bottom: 2.5rem; }
 
@@ -251,126 +201,10 @@
     line-height: 1.6;
   }
 
-  .ort-karte {
-    background: var(--white);
-    border: 1px solid var(--border);
-    border-radius: 8px;
-    padding: 1.25rem;
-    margin-bottom: 0.75rem;
-    transition: border-color 0.15s, box-shadow 0.15s;
-    animation: einblenden 0.35s ease both;
-    overflow: hidden;
-  }
-
-  .ort-karte:hover {
-    border-color: var(--muted);
-    box-shadow: 0 2px 12px rgba(0,0,0,0.06);
-  }
-
   .ort-foto {
     width: calc(100% + 2.5rem);
-    height: 180px;
     margin: -1.25rem -1.25rem 1.25rem -1.25rem;
-    background: var(--bg2);
-    background-size: cover;
-    background-position: center;
-    opacity: 0;
-    transition: opacity 0.4s ease;
   }
-
-  .ort-foto.geladen { opacity: 1; }
-
-  .ort-oben {
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-start;
-    gap: 1rem;
-    margin-bottom: 0.3rem;
-  }
-
-  .ort-name {
-    font-family: 'Lora', serif;
-    font-size: 1.1rem;
-    font-weight: 600;
-    line-height: 1.2;
-  }
-
-  .ort-budget {
-    font-size: 0.72rem;
-    font-weight: 600;
-    color: var(--accent2);
-    white-space: nowrap;
-    padding: 0.2rem 0.5rem;
-    background: #EBF3EE;
-    border-radius: 3px;
-    letter-spacing: 0.03em;
-  }
-
-  .ort-meta {
-    font-size: 0.74rem;
-    color: var(--muted);
-    margin-bottom: 0.75rem;
-    display: flex;
-    align-items: center;
-    gap: 0.4rem;
-    flex-wrap: wrap;
-  }
-
-  .ort-kommentar {
-    font-size: 0.84rem;
-    color: #5C5449;
-    line-height: 1.65;
-    font-style: italic;
-    margin-bottom: 1rem;
-    padding-left: 0.75rem;
-    border-left: 2px solid var(--border);
-  }
-
-  .ort-unten {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    gap: 0.75rem;
-    flex-wrap: wrap;
-  }
-
-  .ort-tags { display: flex; gap: 0.35rem; flex-wrap: wrap; }
-
-  .otag {
-    font-size: 0.62rem;
-    letter-spacing: 0.07em;
-    text-transform: uppercase;
-    background: var(--tag-bg);
-    color: var(--muted);
-    padding: 0.2rem 0.5rem;
-    border-radius: 3px;
-    border: 1px solid var(--border);
-  }
-
-  .otag.highlight {
-    background: #FBF0EB;
-    color: var(--accent);
-    border-color: #E8C4B4;
-  }
-
-  .maps-link {
-    font-size: 0.75rem;
-    font-weight: 600;
-    color: var(--ink);
-    text-decoration: none;
-    display: flex;
-    align-items: center;
-    gap: 0.3rem;
-    letter-spacing: 0.04em;
-    white-space: nowrap;
-    padding: 0.4rem 0.85rem;
-    border: 1px solid var(--border);
-    border-radius: 4px;
-    background: var(--bg);
-    transition: all 0.12s;
-  }
-
-  .maps-link:hover { background: var(--ink); color: var(--white); border-color: var(--ink); }
 
   .keine-ergebnisse {
     text-align: center;
@@ -408,9 +242,7 @@
   }
 
   @media (max-width: 480px) {
-    header { padding: 1rem 1.25rem; }
     main { padding: 2rem 1.25rem 5rem; }
-    .ort-unten { flex-direction: column; align-items: flex-start; }
   }
 </style>
 </head>

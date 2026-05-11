@@ -5,63 +5,16 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Alle Orte — The Local List Berlin</title>
 <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,600;1,400;1,600&family=Mulish:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
 <style>
-  :root {
-    --bg:      #F7F3EE;
-    --bg2:     #EDE7DC;
-    --ink:     #1E1B17;
-    --muted:   #8C8278;
-    --border:  #D9D0C4;
-    --accent:  #C4501A;
-    --accent2: #4A7C59;
-    --tag-bg:  #E8E1D6;
-    --white:   #FDFAF7;
-  }
+  .logo { text-decoration: none; }
 
-  * { margin: 0; padding: 0; box-sizing: border-box; }
-  html { scroll-behavior: smooth; }
-
-  body {
-    background: var(--bg);
-    color: var(--ink);
-    font-family: 'Mulish', sans-serif;
-    font-weight: 400;
-    min-height: 100vh;
-    -webkit-font-smoothing: antialiased;
-  }
-
-  /* ── HEADER ── */
-  header {
-    background: var(--white);
-    border-bottom: 1px solid var(--border);
-    padding: 1.25rem 2rem;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    position: sticky;
-    top: 0;
-    z-index: 50;
-  }
-
-  .logo {
-    font-family: 'Lora', serif;
-    font-size: 1.2rem;
-    font-weight: 600;
-    letter-spacing: -0.01em;
-    color: var(--ink);
-    text-decoration: none;
-  }
-
-  .logo span { color: var(--accent); }
-
-  /* ── LAYOUT ── */
   .seite {
     max-width: 900px;
     margin: 0 auto;
     padding: 2.5rem 1.5rem 6rem;
   }
 
-  /* ── TITEL ── */
   .seiten-titel {
     margin-bottom: 2rem;
   }
@@ -81,7 +34,6 @@
     letter-spacing: -0.02em;
   }
 
-  /* ── FILTER ── */
   .filter-bereich {
     background: var(--white);
     border: 1px solid var(--border);
@@ -144,7 +96,6 @@
     border-color: var(--accent2);
   }
 
-  /* Filter zurücksetzen */
   .filter-reset {
     font-size: 0.72rem;
     color: var(--muted);
@@ -160,7 +111,6 @@
   }
   .filter-reset:hover { color: var(--ink); }
 
-  /* ── ERGEBNIS INFO ── */
   .ergebnis-info {
     font-size: 0.78rem;
     color: var(--muted);
@@ -170,7 +120,6 @@
     align-items: center;
   }
 
-  /* ── KARTEN GRID ── */
   .karten-grid {
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -181,142 +130,71 @@
     .karten-grid { grid-template-columns: 1fr; }
   }
 
-  /* ── ORT KARTE ── */
   .ort-foto {
-    width: 100%;
-    height: 160px;
-    background: var(--bg2);
-    border-radius: 6px 6px 0 0;
-    background-size: cover;
-    background-position: center;
-    margin: -1.1rem -1.1rem 1rem -1.1rem;
     width: calc(100% + 2.2rem);
+    height: 160px;
+    border-radius: 6px 6px 0 0;
+    margin: -1.1rem -1.1rem 1rem -1.1rem;
     transition: opacity 0.3s;
-    opacity: 0;
   }
 
-  .ort-foto.geladen { opacity: 1; }
-
   .ort-karte {
-    background: var(--white);
-    border: 1px solid var(--border);
-    border-radius: 8px;
     padding: 1.1rem;
-    transition: border-color 0.15s, box-shadow 0.15s;
+    margin-bottom: 0;
     animation: einblenden 0.3s ease both;
     display: flex;
     flex-direction: column;
-    overflow: hidden;
-  }
-
-  .ort-karte:hover {
-    border-color: var(--muted);
-    box-shadow: 0 2px 12px rgba(0,0,0,0.06);
-  }
-
-  @keyframes einblenden {
-    from { opacity: 0; transform: translateY(8px); }
-    to   { opacity: 1; transform: translateY(0); }
   }
 
   .ort-oben {
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-start;
     gap: 0.5rem;
     margin-bottom: 0.25rem;
   }
 
   .ort-name {
-    font-family: 'Lora', serif;
     font-size: 1rem;
-    font-weight: 600;
-    line-height: 1.2;
   }
 
   .ort-budget {
     font-size: 0.68rem;
-    font-weight: 600;
-    color: var(--accent2);
-    white-space: nowrap;
     padding: 0.18rem 0.45rem;
-    background: #EBF3EE;
-    border-radius: 3px;
     flex-shrink: 0;
   }
 
   .ort-meta {
     font-size: 0.72rem;
-    color: var(--muted);
     margin-bottom: 0.65rem;
   }
 
   .ort-kommentar {
     font-size: 0.81rem;
-    color: #5C5449;
     line-height: 1.6;
-    font-style: italic;
     margin-bottom: 0.9rem;
     padding-left: 0.65rem;
-    border-left: 2px solid var(--border);
     flex: 1;
   }
 
   .ort-unten {
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-end;
     gap: 0.5rem;
     margin-top: auto;
   }
 
   .ort-tags {
-    display: flex;
     gap: 0.3rem;
-    flex-wrap: wrap;
   }
 
   .otag {
     font-size: 0.58rem;
-    letter-spacing: 0.06em;
-    text-transform: uppercase;
-    background: var(--tag-bg);
-    color: var(--muted);
     padding: 0.18rem 0.45rem;
-    border-radius: 3px;
-    border: 1px solid var(--border);
-  }
-
-  .otag.gruen {
-    background: #EBF3EE;
-    color: var(--accent2);
-    border-color: #C8DFD0;
   }
 
   .maps-link {
     font-size: 0.72rem;
-    font-weight: 600;
-    color: var(--ink);
-    text-decoration: none;
-    display: flex;
-    align-items: center;
     gap: 0.25rem;
-    white-space: nowrap;
     padding: 0.35rem 0.75rem;
-    border: 1px solid var(--border);
-    border-radius: 4px;
-    background: var(--bg);
-    transition: all 0.12s;
     flex-shrink: 0;
   }
 
-  .maps-link:hover {
-    background: var(--ink);
-    color: var(--white);
-    border-color: var(--ink);
-  }
-
-  /* ── LEER ── */
   .keine-orte {
     grid-column: 1 / -1;
     text-align: center;
@@ -328,16 +206,13 @@
 
   .keine-orte span { display: block; font-size: 2rem; margin-bottom: 0.75rem; }
 
-  /* ── TRENNLINIE FILTER ── */
   .filter-divider {
     height: 1px;
     background: var(--border);
     margin: 1rem 0;
   }
 
-  /* ── RESPONSIVE ── */
   @media (max-width: 480px) {
-    header { padding: 1rem 1.25rem; }
     .seite { padding: 1.5rem 1.25rem 5rem; }
     .filter-bereich { padding: 1rem; }
     .filter-zeile { gap: 0.6rem; }
