@@ -119,4 +119,19 @@ const ORTE = [
   cashonly: false,
 },
 
+  {
+  name: "Matchasome",
+  kiez: "Mitte",
+  maps: "https://maps.app.goo.gl/4g5o6vecSJu8Bgs1A",
+  kommentar: "Ein auf Matcha spezialisiertes Café mit einer feinen Auswahl an Drinks und Desserts sowie wechselnden Specials. Ergänzt wird das Angebot durch einen eigenen Shop mit Matcha-Produkten. Das besondere Highlight: eine Granitmühle, mit der man seinen Matcha frisch mahlen kann – passende Workshops sind online buchbar.",
+  kueche: "Café / Matcha & Tee",
+  tageszeit: ["brunch", "lunch"],
+  vibe: ["entspannt"],
+  budget: ["low", "mid"],
+  vegan: true,
+  reservierung: false,
+  walkin: true,
+  cashonly: false,
+},
+
 ];
