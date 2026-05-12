@@ -134,4 +134,19 @@ const ORTE = [
   cashonly: false,
 },
 
+  {
+  name: "Mr. Melon Pan",
+  kiez: "Prenzlauer Berg",
+  maps: "https://maps.app.goo.gl/L8wF7R4MrmY261qQ9",
+  kommentar: "Ein kleines Café mit wenigen Tischen, das vor allem auf das Mitnehmen ausgerichtet ist. Spezialität des Hauses sind japanische Desserts – ein absoluter Favorit dabei: der japanische Cheesecake mit Bueno-Creme.",
+  kueche: "Japanisch / Bäckerei & Desserts",
+  tageszeit: ["brunch",],
+  vibe: ["entspannt"],
+  budget: ["low"],
+  vegan: false,
+  reservierung: false,
+  walkin: true,
+  cashonly: false,
+},
+
 ];
