@@ -88,5 +88,20 @@ const ORTE = [
   walkin: true,
   cashonly: false, 
 },
+  
+  {
+  name: "Oregano Pizza & Pasta",
+  kiez: "Kreuzberg",
+  maps: "https://maps.app.goo.gl/mtcGQXohDoBPa9d16",
+  kommentar: "Ein im Kiez bestens bekannter und beliebter Imbiss – klein, mit nur zwei bis drei Tischen und klar auf das Mitnehmen ausgerichtet. Die Preise sind günstig, die Pizza und Pasta überzeugen. Ein besonderer Favorit: die Pasta Carbonara.",
+  kueche: "Italienisch / Pizza & Pasta",
+  tageszeit: ["lunch", "dinner"],
+  vibe: ["entspannt", "schnell"],
+  budget: ["low"],
+  vegan: true,
+  reservierung: false,
+  walkin: true,
+  cashonly: false,
+},
 
 ];
