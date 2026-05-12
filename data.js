@@ -78,7 +78,7 @@ const ORTE = [
   name: "The Bun Society",
   kiez: "Kreuzberg",
   maps: "https://maps.app.goo.gl/XJE3rQw82ca6kU2N6",
-  kommentar: "Ein kleines Imbiss-Restaurant mit stilvoller, minimalistischer Einrichtung und nur wenigen Tischen, wer hier einen Platz ergattern möchte, sollte früh kommen, denn Reservierungen sind nicht möglich. Bedient wird man an der Theke selbst, einen Tischservice gibt es nicht. Die Speisekarte wechselt regelmäßig und bietet besondere Burger von hervorragender Qualität. Ein absolutes Highlight ist der Sumac Slap Burger. Zum Abschluss lockt eine erlesene Auswahl außergewöhnlicher Eissorten, darunter Matcha und Mango Sticky Rice. Aufgrund der Größe und Atmosphäre ist das Lokal vor allem für Paare und kleine Gruppen geeignet.", 
+  kommentar: "Ein kleines Imbiss-Restaurant mit stilvoller, minimalistischer Einrichtung und nur wenigen Tischen. Reservierungen sind nicht möglich, Tischservice gibt es keinen – Paare und kleine Gruppen sind hier am besten aufgehoben. Die wechselnde Karte bietet besondere, sehr leckere Burger, wobei der Sumac Slap Burger das absolute Highlight ist. Als Dessert gibt es eine Auswahl ungewöhnlicher Eissorten wie Matcha oder Mango Sticky Rice.", 
   kueche: "Smashburger / Asian-American",
   tageszeit: ["lunch", "dinner"],
   vibe: ["entspannt"],
