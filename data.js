@@ -104,4 +104,19 @@ const ORTE = [
   cashonly: false,
 },
 
+  {
+  name: "Little Little Chinese Dumpling",
+  kiez: "Charlottenburg",
+  maps: "https://maps.app.goo.gl/p3zy8TNgJeU2qCPt5",
+  kommentar: "Authentisch chinesische Küche mit einer tollen Auswahl an Speisen – besonders hervorzuheben sind die hausgemachten Dumplings. Das Restaurant ist gut besucht, eine kurze Wartezeit sollte man einplanen. Das absolute Highlight: der Dumpling Mix.",
+  kueche: "Chinesisch / Dumplings & Bao",
+  tageszeit: ["lunch", "dinner"],
+  vibe: ["entspannt"],
+  budget: ["low","mid"],
+  vegan: true,
+  reservierung: false,
+  walkin: false,
+  cashonly: false,
+},
+
 ];
