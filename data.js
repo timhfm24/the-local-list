@@ -16,10 +16,10 @@ const ORTE = [
   },
   
   {
-    name: "Banh Mi Stable",
+    name: "Bánh mì Sài Gòn",
     kiez: "Mitte",
-    maps: "https://maps.app.goo.gl/scEYY2PbqpS4YRtH6",
-    kommentar: "Kleiner Laden, perfekt für einen schnellen vietnamesischen Snack. Hauptsächlich Banh Mi Sandwiches. Favorit: Banh Mi Heo Quay",
+    maps: "https://maps.app.goo.gl/kQ71sXPaWJkHwRig6",
+    kommentar: "Vietnamesisches Baguette - Kleiner Laden, perfekt für einen schnellen vietnamesischen Snack. Hauptsächlich Banh Mi Sandwiches. Favorit: Banh Mi Heo Quay",
     kueche: "Vietnamesisch",
     tageszeit: ["lunch", "dinner"],
     vibe: ["schnell"],
