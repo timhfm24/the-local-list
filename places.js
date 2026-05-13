@@ -76,6 +76,13 @@ async function ladeOrtDaten(name, kiez) {
     });
 
     const heuteIndex = new Date().getDay() === 0 ? 6 : new Date().getDay() - 1;
+    function openStatus(oh) {
+      if (!oh) return null;
+      if (typeof oh.isOpen === "function") return oh.isOpen();
+      if (typeof oh.open_now === "boolean") return oh.open_now;
+      return null;
+    }
+
     const ergebnis = {
       foto: place.photos && place.photos.length > 0
         ? place.photos[0].getUrl({ maxWidth: 600 })
@@ -86,7 +93,7 @@ async function ladeOrtDaten(name, kiez) {
       telefon: details && details.formatted_phone_number ? details.formatted_phone_number : null,
       website: details && details.website ? details.website : null,
       heuteText: details && details.opening_hours ? details.opening_hours.weekday_text[heuteIndex] : null,
-      jetztOffen: place.opening_hours ? place.opening_hours.isOpen() : (details && details.opening_hours ? details.opening_hours.isOpen() : null),
+      jetztOffen: openStatus(details && details.opening_hours ? details.opening_hours : place.opening_hours),
       reservierbar: false,
       mapsUrl: details && details.url ? details.url : null,
       wochentag: details && details.opening_hours ? details.opening_hours.weekday_text : null,
