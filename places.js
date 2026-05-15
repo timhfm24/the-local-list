@@ -78,8 +78,16 @@ async function ladeOrtDaten(name, kiez) {
     const heuteIndex = new Date().getDay() === 0 ? 6 : new Date().getDay() - 1;
     function openStatus(oh) {
       if (!oh) return null;
-      if (typeof oh.isOpen === "function") return oh.isOpen();
+      
+      // Versuche zuerst open_now (zuverlässiger)
       if (typeof oh.open_now === "boolean") return oh.open_now;
+      
+      // Fallback auf isOpen(), aber prüfe ob es wirklich ein boolean zurückgibt
+      if (typeof oh.isOpen === "function") {
+        const result = oh.isOpen();
+        if (typeof result === "boolean") return result;
+      }
+      
       return null;
     }
 
